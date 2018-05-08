@@ -13,6 +13,15 @@ public class Adresse {
         return adresseID;
     }
 
+    public Adresse(int adresseID, String gade, String husnummer, String etage, int postnummer, String bynavn) {
+        this.adresseID = adresseID;
+        this.gade = gade;
+        this.husnummer = husnummer;
+        this.etage = etage;
+        this.postnummer = postnummer;
+        this.bynavn = bynavn;
+    }
+
     public void setAdresseID(int adresseID) {
         this.adresseID = adresseID;
     }

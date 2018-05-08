@@ -6,15 +6,15 @@ public class Markørliste {
 
     private ArrayList<Markør> markører;
 
-    private opretMarkør() {
+    private void opretMarkør() {
 
     }
 
-    private redigerMarkør(){
+    private void redigerMarkør(){
 
     }
 
-    fjernMarkør(){
+    private void fjernMarkør(){
 
     }
 
