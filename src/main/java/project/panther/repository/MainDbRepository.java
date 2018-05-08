@@ -136,13 +136,13 @@ public class MainDbRepository implements DbInterface {
     @Override
     public void updateMarkør(Markør markør) {
         jdbc.update("UPDATE panther.adresser SET " +
-                "gade = '" + adresse.getGade() + "', " +
-                "husnummer = '"+ adresse.getHusnummer() + "', " +
-                "etage = '"+ adresse.getEtage() + "', " +
-                "postnummer = '"+ adresse.getPostnummer() + "', " +
-                "bynavnbrugeradresser = '"+ adresse.getBynavn() +
+                "lattitude = '" + markør.getLattitude() + "', " +
+                "longtitude = '"+ markør.getLongtitude() + "', " +
+                "oprettelsestidspunkt = '"+ markør.getOprettelsesTidspunkt() + "', " +
+                "afslutningsTidspunkt = '"+ markør.getAfslutningsTidspunkt() + "', " +
+                "pant = '"+ markør.getPant() +
 
-                "'WHERE adresse_id ='"+ adresse.getAdresseID() + "'");
+                "'WHERE adresse_id ='"+ markør.getMarkørID() + "'");
 
     }
 
