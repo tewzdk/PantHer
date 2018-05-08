@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import project.panther.model.Adresse;
 import project.panther.model.Bruger;
 import project.panther.model.Markør;
+import project.panther.model.Pant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,7 +88,7 @@ public class MainDbRepository implements DbInterface {
 
     @Override
     public Adresse readadresse(int id) {
-        List<Adresse> students = new ArrayList<>();
+        List<Adresse> adresses = new ArrayList<>();
         sqlRowSet = jdbc.queryForRowSet("SELECT * FROM PantHer WHERE adresse_id ='"+ id + "'");
 
         while (sqlRowSet.next()) {
@@ -104,6 +105,24 @@ public class MainDbRepository implements DbInterface {
 
     @Override
     public Markør readMarkør(int id) {
+        sqlRowSet = jdbc.queryForRowSet("SELECT * FROM panther WHERE markør_id = '" + id + "'");
+
+        while (sqlRowSet.next()) {
+            int estimeret_beløb = sqlRowSet.getInt("estimeret_beløb");
+            String pantbillede_sti = sqlRowSet.getString("pantbillede_sti");
+
+            Pant pant = new Pant();
+            pant.setEstimeretBeløb(estimeret_beløb);
+            pant.setPantBilledSti(pantbillede_sti);
+
+            return new Markør(
+                    sqlRowSet.getInt("markør_id"),
+                    sqlRowSet.getInt("lattitude"),
+                    sqlRowSet.getInt("longtitude"),
+                    sqlRowSet.getDate("oprettelsestidspunkt"),
+                    sqlRowSet.getDate("afslutningstidspunkt"),
+                    pant);
+        }
         return null;
     }
 
