@@ -109,6 +109,15 @@ public class MainDbRepository implements DbInterface {
 
     @Override
     public void updateBruger(Bruger bruger) {
+        jdbc.update("UPDATE panther.adresser SET " +
+                "kodeord = '" + bruger.getKodeord()+ "', " +
+                "fornavn = '"+ bruger.getFornavn() + "', " +
+                "efternavn = '"+ bruger.getEfternavn() + "', " +
+                "mail = '"+ bruger.getMail() + "', " +
+                "telefonnummer = '"+ bruger.getTelefonnummer() + "', " +
+                "profilbillede_sti = '"+ bruger.getProfilbilledeSti() +
+
+                "'WHERE adresse_id ='"+ bruger.getBrugerID() + "'");
 
     }
 
@@ -126,11 +135,20 @@ public class MainDbRepository implements DbInterface {
 
     @Override
     public void updateMarkør(Markør markør) {
+        jdbc.update("UPDATE panther.adresser SET " +
+                "gade = '" + adresse.getGade() + "', " +
+                "husnummer = '"+ adresse.getHusnummer() + "', " +
+                "etage = '"+ adresse.getEtage() + "', " +
+                "postnummer = '"+ adresse.getPostnummer() + "', " +
+                "bynavnbrugeradresser = '"+ adresse.getBynavn() +
+
+                "'WHERE adresse_id ='"+ adresse.getAdresseID() + "'");
 
     }
 
     @Override
     public void deleteBruger(int id) {
+        jdbc.update("DELETE FROM brugere WHERE bruger_id='" + id + "'");
 
     }
 
@@ -141,6 +159,6 @@ public class MainDbRepository implements DbInterface {
 
     @Override
     public void deleteMarkør(int id) {
-
+    jdbc.update("DELETE FROM markører WHERE markør_id='" + id + "'");
     }
 }
