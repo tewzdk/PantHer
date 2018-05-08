@@ -13,7 +13,7 @@ public class Bruger {
     private String profilbilledeSti;
     private ArrayList<Adresse> brugeradresser;
 
-    public Bruger(int brugerID, String kodeord, String fornavn, String efternavn, String mail, String telefonnummer, String profilbilledeSti, ArrayList<Adresse> brugeradresser) {
+    public Bruger(int brugerID, String kodeord, String fornavn, String efternavn, String mail, String telefonnummer, String profilbilledeSti) {
         this.brugerID = brugerID;
         this.kodeord = kodeord;
         this.fornavn = fornavn;
@@ -21,7 +21,6 @@ public class Bruger {
         this.mail = mail;
         this.telefonnummer = telefonnummer;
         this.profilbilledeSti = profilbilledeSti;
-        this.brugeradresser = brugeradresser;
     }
 
     @Override
@@ -37,6 +36,8 @@ public class Bruger {
                 ", brugeradresser=" + brugeradresser +
                 '}';
     }
+
+
 
     public int getBrugerID() {
         return brugerID;
