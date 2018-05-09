@@ -9,12 +9,12 @@ public class Markør {
     private int markørID;
     private int lattitude;
     private int longtitude;
-    private Date oprettelsesTidspunkt;
-    private Date afslutningsTidspunkt;
+    private LocalDateTime oprettelsesTidspunkt;
+    private LocalDateTime afslutningsTidspunkt;
     private Pant pant;
 
 
-    public Markør(int markørID, int lattitude, int longtitude, Date oprettelsesTidspunkt, Date afslutningsTidspunkt, Pant pant) {
+    public Markør(int markørID, int lattitude, int longtitude, LocalDateTime oprettelsesTidspunkt, LocalDateTime afslutningsTidspunkt, Pant pant) {
         this.markørID = markørID;
         this.lattitude = lattitude;
         this.longtitude = longtitude;
@@ -55,11 +55,11 @@ public class Markør {
         this.oprettelsesTidspunkt = oprettelsesTidspunkt;
     }
 
-    public Date getAfslutningsTidspunkt() {
+    public LocalDateTime getAfslutningsTidspunkt() {
         return afslutningsTidspunkt;
     }
 
-    public void setAfslutningsTidspunkt(Date afslutningsTidspunkt) {
+    public void setAfslutningsTidspunkt(LocalDateTime afslutningsTidspunkt) {
         this.afslutningsTidspunkt = afslutningsTidspunkt;
     }
 

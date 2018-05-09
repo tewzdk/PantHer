@@ -1,6 +1,7 @@
 package project.panther.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
@@ -9,6 +10,7 @@ import project.panther.model.Bruger;
 import project.panther.model.Markør;
 import project.panther.model.Pant;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +60,16 @@ public class MainDbRepository implements DbInterface {
 
     @Override
     public List<Markør> readAllMarkør() {
+        List<Markør> markør = new ArrayList<>();
+        String sql= "SELECT * FROM PantHer.markør";
+        sqlRowSet = jdbc.queryForRowSet(sql);
+
+        while (sqlRowSet.next()) {
+            markør.add(new Adresse(
+                    sqlRowSet.getInt("markør_id",
+                            sqlRowSet.getDouble("latitude"))
+            ))
+        }
         return null;
     }
 
@@ -87,8 +99,7 @@ public class MainDbRepository implements DbInterface {
     }
 
     @Override
-    public Adresse readadresse(int id) {
-        List<Adresse> adresses = new ArrayList<>();
+    public Adresse readadresse(int id)  {
         sqlRowSet = jdbc.queryForRowSet("SELECT * FROM PantHer WHERE adresse_id ='"+ id + "'");
 
         while (sqlRowSet.next()) {
@@ -110,17 +121,14 @@ public class MainDbRepository implements DbInterface {
         while (sqlRowSet.next()) {
             int estimeret_beløb = sqlRowSet.getInt("estimeret_beløb");
             String pantbillede_sti = sqlRowSet.getString("pantbillede_sti");
-
-            Pant pant = new Pant();
-            pant.setEstimeretBeløb(estimeret_beløb);
-            pant.setPantBilledSti(pantbillede_sti);
+            Pant pant = new Pant(estimeret_beløb, pantbillede_sti);
 
             return new Markør(
                     sqlRowSet.getInt("markør_id"),
                     sqlRowSet.getInt("lattitude"),
                     sqlRowSet.getInt("longtitude"),
-                    sqlRowSet.getDate("oprettelsestidspunkt"),
-                    sqlRowSet.getDate("afslutningstidspunkt"),
+                    sqlRowSet.getTimestamp("oprettelsestidspunkt").toLocalDateTime(),
+                    sqlRowSet.getTimestamp("afslutningstidspunkt").toLocalDateTime(),
                     pant);
         }
         return null;
