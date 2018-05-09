@@ -18,18 +18,16 @@ public class HomeController {
     private MainDbRepository repository;
 
 @GetMapping("/")
-    public String index(Model model)
-{
-    return "index";
-}
+    public String index(){
+        return "index";
+    }
 
 @PostMapping ("/")
-    public String createAccount(@ModelAttribute Bruger bruger)
-{
-repository.createBruger(bruger);
+    public String createAccount(@ModelAttribute Bruger bruger) {
+    repository.createBruger(bruger);
 
-return "redirect:/";
-}
+    return "index";
+    }
 
 @GetMapping("/lidt-om-os")
     public String omOs(Model model)

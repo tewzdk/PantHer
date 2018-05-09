@@ -13,6 +13,8 @@ public class Bruger {
     private String profilbilledeSti;
     private ArrayList<Adresse> brugeradresser;
 
+    public Bruger(){}
+
     public Bruger(int brugerID, String mail, String fornavn, String efternavn, String telefonnummer, String kodeord, String profilbilledeSti) {
         this.brugerID = brugerID;
         this.mail = mail;

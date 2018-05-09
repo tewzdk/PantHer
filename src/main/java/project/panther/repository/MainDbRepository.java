@@ -93,7 +93,7 @@ public class MainDbRepository implements DbInterface {
     public void createBruger(Bruger bruger) {
         String profilbillede = "s";
         jdbc.update("INSERT INTO panther.brugere " +
-                "(bruger_id, mail, fornavn, efternavn, telefonnummer, kodeord, profilbillede_sti) " +
+                "(mail, fornavn, efternavn, telefonnummer, kodeord, profilbillede_sti) " +
                 "VALUES ('" +
                 bruger.getMail() +"', '"+
                 bruger.getFornavn() + "', '"+
