@@ -63,14 +63,20 @@ public class MainDbRepository implements DbInterface {
         List<Markør> markør = new ArrayList<>();
         String sql= "SELECT * FROM PantHer.markør";
         sqlRowSet = jdbc.queryForRowSet(sql);
+        int estimeret_beløb = sqlRowSet.getInt("estimeret_beløb");
+        String pantbillede_sti = sqlRowSet.getString("pantbillede_sti");
+        Pant pant = new Pant(estimeret_beløb, pantbillede_sti);
 
         while (sqlRowSet.next()) {
-            markør.add(new Adresse(
-                    sqlRowSet.getInt("markør_id",
-                            sqlRowSet.getDouble("latitude"))
-            ))
+            markør.add(new Markør(
+                    sqlRowSet.getInt("markør_id"),
+                    sqlRowSet.getInt("latitude"),
+                    sqlRowSet.getInt("longtitude"),
+                    sqlRowSet.getTimestamp("oprettelsesTidspunkt").toLocalDateTime(),
+                    sqlRowSet.getTimestamp("afslutningsTidspunkt").toLocalDateTime(),
+                    pant));
         }
-        return null;
+        return markør;
     }
 
     @Override
@@ -85,18 +91,45 @@ public class MainDbRepository implements DbInterface {
 
     @Override
     public void createBruger(Bruger bruger) {
+        jdbc.update("INSERT INTO PantHer.brugere " +
+                "(brugerID, kodeord, fornavn, efternavn, mail, telefonnummer, profilbillede_sti) " +
+                "VALUES ('" + bruger.getKodeord()
+                +"', '"+ bruger.getFornavn()
+                + "', '"+ bruger.getEfternavn() +"', '"
+                + bruger.getMail() +"', '"+ bruger.getTelefonnummer() + "', '" + bruger.getProfilbilledeSti() +"')");
 
     }
 
     @Override
     public void createMarkør(Markør markør) {
+        jdbc.update("INSERT INTO PantHer.markører " +
+                "(markør_id, latitude, longitude, oprettelsesTidspunkt, afslutningsTidspunkt, pant) " +
+                "VALUES ('" + markør.getLattitude()
+                +"', '"+ markør.getLongtitude()
+                + "', '"+ markør.getOprettelsesTidspunkt() +"', '"
+                + markør.getAfslutningsTidspunkt() +"', '"+ markør.getPant() +"')");
 
     }
 
     @Override
     public Bruger readbruger(int id) {
+        sqlRowSet = jdbc.queryForRowSet("SELECT * FROM PantHer WHERE bruger_id ='"+ id + "'");
+
+        while (sqlRowSet.next()) {
+            return new Bruger(
+                    sqlRowSet.getInt("bruger_id"),
+                    sqlRowSet.getString("kodeord"),
+                    sqlRowSet.getString("fornavn"),
+                    sqlRowSet.getString("efternavn"),
+                    sqlRowSet.getString("mail"),
+                    sqlRowSet.getString("telefonnummer"),
+                    sqlRowSet.getString("profilbillede_sti"));
+        }
         return null;
     }
+
+
+
 
     @Override
     public Adresse readadresse(int id)  {
