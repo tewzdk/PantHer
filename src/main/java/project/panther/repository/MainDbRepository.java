@@ -91,12 +91,17 @@ public class MainDbRepository implements DbInterface {
 
     @Override
     public void createBruger(Bruger bruger) {
-        jdbc.update("INSERT INTO PantHer.brugere " +
-                "(brugerID, kodeord, fornavn, efternavn, mail, telefonnummer, profilbillede_sti) " +
-                "VALUES ('" + bruger.getKodeord()
-                +"', '"+ bruger.getFornavn()
-                + "', '"+ bruger.getEfternavn() +"', '"
-                + bruger.getMail() +"', '"+ bruger.getTelefonnummer() + "', '" + bruger.getProfilbilledeSti() +"')");
+        String profilbillede = "s";
+        jdbc.update("INSERT INTO panther.brugere " +
+                "(bruger_id, mail, fornavn, efternavn, telefonnummer, kodeord, profilbillede_sti) " +
+                "VALUES ('" +
+                bruger.getMail() +"', '"+
+                bruger.getFornavn() + "', '"+
+                bruger.getEfternavn() + "', '"+
+                bruger.getTelefonnummer() + "', '" +
+                bruger.getKodeord() + "', '"+
+                profilbillede +"')");
+        System.out.println(bruger);
 
     }
 

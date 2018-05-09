@@ -1,264 +1,100 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body {font-family: Arial, Helvetica, sans-serif;}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css"
+          integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+    <title>PantHer</title>
 
-        /* Full-width input fields */
-        input[type=text], input[type=password] {
-            width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-        }
-
-        /* Set a style for all buttons */
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        button:hover {
-            opacity: 0.8;
-        }
-
-        /* Extra styles for the cancel button */
-        .cancelbtn {
-            width: auto;
-            padding: 10px 18px;
-            background-color: #f44336;
-        }
-
-        /* Center the image and position the close button */
-        .imgcontainer {
-            text-align: center;
-            margin: 24px 0 12px 0;
-            position: relative;
-        }
-
-        img.avatar {
-            width: 40%;
-            border-radius: 50%;
-        }
-
-        .container {
-            padding: 16px;
-        }
-
-        span.psw {
-            float: right;
-            padding-top: 16px;
-        }
-
-        /* The Modal (background) */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-            padding-top: 60px;
-        }
-
-        /* Modal Content/Box */
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-            border: 1px solid #888;
-            width: 30%; /* Could be more or less, depending on screen size */
-        }
-
-        /* The Close Button (x) */
-        .close {
-            position: absolute;
-            right: 25px;
-            top: 0;
-            color: #000;
-            font-size: 35px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: red;
-            cursor: pointer;
-        }
-
-        /* Add Zoom Animation */
-        .animate {
-            -webkit-animation: animatezoom 0.6s;
-            animation: animatezoom 0.6s
-        }
-
-        @-webkit-keyframes animatezoom {
-            from {-webkit-transform: scale(0)}
-            to {-webkit-transform: scale(1)}
-        }
-
-        @keyframes animatezoom {
-            from {transform: scale(0)}
-            to {transform: scale(1)}
-        }
-
-        /* Change styles for span and cancel button on extra small screens */
-        @media screen and (max-width: 300px) {
-            span.psw {
-                display: block;
-                float: none;
-            }
-            .cancelbtn {
-                width: 100%;
-            }
-        }
-
-        ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #333;
-        }
-
-        li {
-            float: left;
-        }
-
-        li a {
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-
-        li a:hover:not(.active) {
-            background-color: #111;
-        }
-
-        .active {
-            background-color: #4CAF50;
-        }
-
-        .split {
-            height: 100%;
-            width: 50%;
-            position: fixed;
-            z-index: 1;
-            top: auto;
-            overflow-x: hidden;
-            padding-top: 20px;
-
-        }
-
-        /* Control the left side */
-        .left {
-            left: 0;
-            background-color: white;
-        }
-
-        /* Control the right side */
-        .right {
-            right: 0;
-            background-color: white;
-        }
-
-        /* If you want the content centered horizontally and vertically */
-        .centered {
-            position: absolute;
-            top: 45%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-        }
-
-        /* Style the image inside the centered container, if needed */
-        .centered img {
-            width: auto;
-            height: auto;
-        }
-    </style>
 </head>
 <body>
-
-
-
-<ul>
-    <li><a href="#home">PantHer</a></li>
-    <li><a onclick="document.getElementById('id01').style.display='block'" style="width:auto; float:right;">Login</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li style="float:right"><a class="active" href="#about">Admin</a></li>
-</ul>
-
-<div class="split left">
-    <div class="centered">
-        <img src="https://i.imgur.com/WBXNDCq.png" alt="Map">
-    </div>
-</div>
-
-<div class="split right">
-    <div class="centered">
-        <h2>Indledning</h2>
-        <p>I slipstrømmen af den store opblomstring af smartphone-apps, der dyrker deleøkonomi, har vi fundet på en idé, der skal gøre livet lettere for mange danskere. Idéen er relativ enkelt - og det er måske dens store styrke. For mange mennesker er pant en last i hverdagen. For nogen er det et nødvendigt tilskud til økonomien, og det er her, vi ser en mulighed.
-
-            Hvad nu hvis dem, der synes pant er en last, kunne “uploade” deres pant, så andre, der er pressede på privatøkonomien, kan komme forbi og hente det - hurtigt og ubesværet for begge parter? Det er det koncept, vi forsøger at realisere. Idéen er tiltænkt smartphone-formatet, men i løbet af eksamensperiode har vi i valgt at lave et pilotprojekt i form af en hjemmeside.
-
-            I den forbindelse har vi valgt at lave en side hvor man kan oprette sig som bruger, og vælge om om man vil lave et oplæg med pant - eller være pantsamler. Hvis man laver et oplæg vil man så senere kunne se sin markør på google mappet, og pantsamlere vil så kunne kontakte en vedr afhentning af pant. På denne måde så vi det i gruppen som en god løsning for at hjælpe folk som er pressede, og samtidig aflaste dem som er for dovne eller ikke kan overskue deres pant til selv at gå ned med det. En løsning for alle!
-        </p>
-    </div>
-</div>
-
-<div id="id01" class="modal">
-
-    <form class="modal-content animate" action="/action_page.php">
-        <div class="imgcontainer">
-            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-            <img src="forsidemap.png" alt="Avatar" class="avatar">
+<nav class="main-nav">
+    <ul>
+        <li><a class="logo-placeholder" href="/">LOGO-PLACEHOLDER</a></li>
+        <li><button id="create-user-btn"><i class="fas fa-user-plus"></i><p class="btn-text">Opret Bruger</p></button></li>
+        <div id="create-user-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span id="create-user-close-btn" class="close-btn">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <form class="create-user-form" method="post">
+                        <label><b>E-mailadresse</b></label>
+                        <input type="email" placeholder="Indtast din e-mailadresse" name="emailadresse" required>
+                        <label><b>Fornavn</b></label>
+                        <input type="text" placeholder="Indtast dit fornavn" name="fornavn" required>
+                        <label><b>Efternavn</b></label>
+                        <input type="text" placeholder="Indtast dit efternavn" name="efternavn" required>
+                        <label><b>Telefonnummer</b></label>
+                        <input type="text" placeholder="Indtast dit telefonnummer" name="telefonnummer" required>
+                        <label><b>Kodeord</b></label>
+                        <input id="password" type="password" placeholder="Indtast dit kodeord" name="kodeord" required>
+                        <input id="passwordconfirm "type="password" placeholder="Gentag dit kodeord" name="kodeord" oninput="check(this)" required>
+                        <button class="create-user-button">Opret Bruger</button>
+                    </form>
+                </div>
+            </div>
         </div>
+        <li><button id="login-btn"><i class="fas fa-sign-in-alt"></i><p class="btn-text">Login</p></button></li>
+        <div id="login-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span id="login-close-btn" class="close-btn">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <form class="login-form">
+                        <label><b>E-mailadresse</b></label>
+                        <input type="email" placeholder="Indtast din e-mailadresse" name="emailadresse" required>
+                        <br>
+                        <label><b>Kodeord</b></label>
+                        <input type="password" placeholder="Indtast dit kodeord" name="kodeord" required>
+                        <br>
+                        <button class="login-btn">Login</button>
+                        <br>
+                        <label><input type="checkbox" name="remember"> Husk oplysninger</label>
+                    </form>
+                </div>
+                <div class="modal-footer">
 
-        <div class="container">
-            <label for="uname"><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" name="uname" required>
-
-            <label for="psw"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" required>
-
-            <button type="submit">Login</button>
-            <label>
-                <input type="checkbox" checked="checked" name="remember"> Remember me
-            </label>
+                </div>
+            </div>
         </div>
-
-        <div class="container" style="background-color:#f1f1f1">
-            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-            <span class="psw">Forgot <a href="#">password?</a></span>
+    </ul>
+</nav>
+<div class="wrapper">
+    <section class="top-container">
+        <header class="showcase">
+            <img src="map.jpg">
+        </header>
+        <div class="info">
+                <p>
+                    Her skal der stå en masse fornuftige ting om vores fantastiske produkt.
+                    Der forhåbentlig er færdig inden vi skal til eksamen. Vi vil gøre vores bedste
+                    - selvom vi ikke er eksperter endnu.
+                </p>
         </div>
-    </form>
+        <div class="article">
+            <p>Her skriver vi om alt det vi mangler at skrive om, meget meget vigtige ting, som vi endnu ikke har regnet ud endnu
+            Thomas vil eventuelt også fortælle lidt om hans yndlingsbeskæftigelse. Som er at sove. Han har en masse gode råd til
+            hvordan man kan begynde at dyrke den hobby lidt hyppigere. Ja ja aja men flowwriting kan være rigtig svært...
+            nu stopper jeg.
+            </p>
+        </div>
+    </section>
 </div>
-
-<script>
-    // Get the modal
-    var modal = document.getElementById('id01');
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-</script>
-
+<footer>
+    <hr>
+    <ul>
+        <li><i class="fas fa-keyboard fa-2x"></i>&emsp;<a href="pantherprojektet">Mere om projektet</a></li>
+        <li><i class="far fa-handshake fa-2x"></i>&emsp;<a href="samarbejdspartnere">Samarbejdspartnere</a></li>
+        <li><i class="fas fa-users fa-2x"></i>&emsp;<a href="lidt-om-os">Lidt om os</a></li>
+    </ul>
+    <hr>
+    <p>PantHer© 2018</p>
+</footer>
+<script src="main.js"></script>
 </body>
 </html>

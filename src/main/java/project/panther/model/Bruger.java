@@ -13,12 +13,12 @@ public class Bruger {
     private String profilbilledeSti;
     private ArrayList<Adresse> brugeradresser;
 
-    public Bruger(int brugerID, String kodeord, String fornavn, String efternavn, String mail, String telefonnummer, String profilbilledeSti) {
+    public Bruger(int brugerID, String mail, String fornavn, String efternavn, String telefonnummer, String kodeord, String profilbilledeSti) {
         this.brugerID = brugerID;
-        this.kodeord = kodeord;
+        this.mail = mail;
         this.fornavn = fornavn;
         this.efternavn = efternavn;
-        this.mail = mail;
+        this.kodeord = kodeord;
         this.telefonnummer = telefonnummer;
         this.profilbilledeSti = profilbilledeSti;
     }
