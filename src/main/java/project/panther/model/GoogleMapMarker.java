@@ -2,20 +2,19 @@ package project.panther.model;
 
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
-public class Markør {
+public class GoogleMapMarker {
 
-    private int markørID;
-    private int lattitude;
-    private int longtitude;
+    private int markerID;
+    private double lattitude;
+    private double longtitude;
     private LocalDateTime oprettelsesTidspunkt;
     private LocalDateTime afslutningsTidspunkt;
     private Pant pant;
 
 
-    public Markør(int markørID, int lattitude, int longtitude, LocalDateTime oprettelsesTidspunkt, LocalDateTime afslutningsTidspunkt, Pant pant) {
-        this.markørID = markørID;
+    public GoogleMapMarker(int markerID, double lattitude, double longtitude, LocalDateTime oprettelsesTidspunkt, LocalDateTime afslutningsTidspunkt, Pant pant) {
+        this.markerID = markerID;
         this.lattitude = lattitude;
         this.longtitude = longtitude;
         this.oprettelsesTidspunkt = oprettelsesTidspunkt;
@@ -23,15 +22,15 @@ public class Markør {
         this.pant = pant;
     }
 
-    public int getMarkørID() {
-        return markørID;
+    public int getMarkerID() {
+        return markerID;
     }
 
-    public void setMarkørID(int markørID) {
-        this.markørID = markørID;
+    public void setMarkerID(int markerID) {
+        this.markerID = markerID;
     }
 
-    public int getLattitude() {
+    public double getLattitude() {
         return lattitude;
     }
 
@@ -39,7 +38,7 @@ public class Markør {
         this.lattitude = lattitude;
     }
 
-    public int getLongtitude() {
+    public double getLongtitude() {
         return longtitude;
     }
 

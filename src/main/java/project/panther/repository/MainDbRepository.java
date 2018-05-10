@@ -1,18 +1,11 @@
 package project.panther.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
-import project.panther.model.Adresse;
-import project.panther.model.Bruger;
-import project.panther.model.Markør;
-import project.panther.model.Pant;
+import project.panther.model.*;
 
-import javax.crypto.EncryptedPrivateKeyInfo;
-import java.security.CryptoPrimitive;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,26 +53,7 @@ public class MainDbRepository implements DbInterface {
         return adresses;
     }
 
-    @Override
-    public List<Markør> readAllMarkør() {
-        List<Markør> markør = new ArrayList<>();
-        String sql= "SELECT * FROM PantHer.markør";
-        sqlRowSet = jdbc.queryForRowSet(sql);
-        int estimeret_beløb = sqlRowSet.getInt("estimeret_beløb");
-        String pantbillede_sti = sqlRowSet.getString("pantbillede_sti");
-        Pant pant = new Pant(estimeret_beløb, pantbillede_sti);
 
-        while (sqlRowSet.next()) {
-            markør.add(new Markør(
-                    sqlRowSet.getInt("markør_id"),
-                    sqlRowSet.getInt("latitude"),
-                    sqlRowSet.getInt("longtitude"),
-                    sqlRowSet.getTimestamp("oprettelsesTidspunkt").toLocalDateTime(),
-                    sqlRowSet.getTimestamp("afslutningsTidspunkt").toLocalDateTime(),
-                    pant));
-        }
-        return markør;
-    }
 
     @Override // SKAL KUNNE LINKE BRUGER OG ADRESSE
     public void createAdresse(Adresse adresse, int brugerId) {
@@ -97,7 +71,6 @@ public class MainDbRepository implements DbInterface {
 
     }
 
-
     @Override
     public void createBruger(Bruger bruger) {
         jdbc.update("INSERT INTO panther.brugere " +
@@ -109,17 +82,6 @@ public class MainDbRepository implements DbInterface {
                 bruger.getTelefonnummer() + "', '" +
                 bruger.getKodeord() + "', '"+
                 bruger.getProfilbilledeSti() +"')");
-
-    }
-
-    @Override
-    public void createMarkør(Markør markør) {
-        jdbc.update("INSERT INTO PantHer.markører " +
-                "(markør_id, latitude, longitude, oprettelsesTidspunkt, afslutningsTidspunkt, pant) " +
-                "VALUES ('" + markør.getLattitude()
-                +"', '"+ markør.getLongtitude()
-                + "', '"+ markør.getOprettelsesTidspunkt() +"', '"
-                + markør.getAfslutningsTidspunkt() +"', '"+ markør.getPant() +"')");
 
     }
 
@@ -173,8 +135,7 @@ public class MainDbRepository implements DbInterface {
         return null;
     }
 
-    @Override
-    public Markør readMarkør(int id) {
+    public GoogleMapMarker readGoogleMapMarker(int id) {
         sqlRowSet = jdbc.queryForRowSet("SELECT * FROM panther WHERE markør_id = '" + id + "'");
 
         while (sqlRowSet.next()) {
@@ -182,7 +143,7 @@ public class MainDbRepository implements DbInterface {
             String pantbillede_sti = sqlRowSet.getString("pantbillede_sti");
             Pant pant = new Pant(estimeret_beløb, pantbillede_sti);
 
-            return new Markør(
+            return new GoogleMapMarker(
                     sqlRowSet.getInt("markør_id"),
                     sqlRowSet.getInt("lattitude"),
                     sqlRowSet.getInt("longtitude"),
@@ -192,6 +153,8 @@ public class MainDbRepository implements DbInterface {
         }
         return null;
     }
+
+
 
     @Override
     public void updateBruger(Bruger bruger) {
@@ -220,19 +183,6 @@ public class MainDbRepository implements DbInterface {
     }
 
     @Override
-    public void updateMarkør(Markør markør) {
-        jdbc.update("UPDATE panther.adresser SET " +
-                "lattitude = '" + markør.getLattitude() + "', " +
-                "longtitude = '"+ markør.getLongtitude() + "', " +
-                "oprettelsestidspunkt = '"+ markør.getOprettelsesTidspunkt() + "', " +
-                "afslutningsTidspunkt = '"+ markør.getAfslutningsTidspunkt() + "', " +
-                "pant = '"+ markør.getPant() +
-
-                "'WHERE adresse_id ='"+ markør.getMarkørID() + "'");
-
-    }
-
-    @Override
     public void deleteBruger(int id) {
         jdbc.update("DELETE FROM brugere WHERE bruger_id='" + id + "'");
 
@@ -243,8 +193,59 @@ public class MainDbRepository implements DbInterface {
         jdbc.update("DELETE FROM adresser WHERE adresse_id='" + id + "'");
     }
 
+
+
+    //-------------------------------- GOOGLE MAP MARKERS --------------------------------//
+
     @Override
-    public void deleteMarkør(int id) {
-    jdbc.update("DELETE FROM markører WHERE markør_id='" + id + "'");
+    public List<GoogleMapMarker> readAllGoogleMapMarkers() {
+        List<GoogleMapMarker> googleMapMarkerList = new ArrayList<>();
+        String sql= "SELECT * FROM PantHer.markører";
+        sqlRowSet = jdbc.queryForRowSet(sql);
+
+        while (sqlRowSet.next()) {
+
+            int estimeret_beløb = sqlRowSet.getInt("estimeret_beløb");
+            String pantbillede_sti = sqlRowSet.getString("pantbillede_sti");
+            Pant pant = new Pant(estimeret_beløb, pantbillede_sti);
+
+            googleMapMarkerList.add(new GoogleMapMarker(
+                    sqlRowSet.getInt("markør_id"),
+                    sqlRowSet.getDouble("latitude"),
+                    sqlRowSet.getDouble("longitude"),
+                    sqlRowSet.getTimestamp("oprettelsestidspunkt").toLocalDateTime(),
+                    sqlRowSet.getTimestamp("afslutningstidspunkt").toLocalDateTime(),
+                    pant));
+        }
+        return googleMapMarkerList;
+    }
+
+    @Override
+    public void readGoogleMapMarker(GoogleMapMarker googleMapMarker) {
+        jdbc.update("INSERT INTO PantHer.markører " +
+                "(markør_id, latitude, longitude, oprettelsesTidspunkt, afslutningsTidspunkt, pant) " +
+                "VALUES ('" + googleMapMarker.getLattitude()
+                +"', '"+ googleMapMarker.getLongtitude()
+                + "', '"+ googleMapMarker.getOprettelsesTidspunkt() +"', '"
+                + googleMapMarker.getAfslutningsTidspunkt() +"', '"+ googleMapMarker.getPant() +"')");
+
+    }
+
+    @Override
+    public void updateGoogleMapMarker(GoogleMapMarker marker) {
+        jdbc.update("UPDATE panther.adresser SET " +
+                "lattitude = '" + marker.getLattitude() + "', " +
+                "longtitude = '"+ marker.getLongtitude() + "', " +
+                "oprettelsestidspunkt = '"+ marker.getOprettelsesTidspunkt() + "', " +
+                "afslutningsTidspunkt = '"+ marker.getAfslutningsTidspunkt() + "', " +
+                "pant = '"+ marker.getPant() +
+
+                "'WHERE adresse_id ='"+ marker.getMarkerID() + "'");
+
+    }
+
+    @Override
+    public void deleteGoogleMapMarker(int id) {
+        jdbc.update("DELETE FROM markører WHERE markør_id='" + id + "'");
     }
 }
