@@ -10,7 +10,7 @@ public class Bruger {
     private String efternavn;
     private String mail;
     private String telefonnummer;
-    private String profilbilledeSti;
+    private String profilbilledeSti = "pictures/avatar.jpg";    //her kan vi ændre default-profilbillede (men kun for nye brugere).
     private ArrayList<Adresse> brugeradresser;
 
     public Bruger(){}

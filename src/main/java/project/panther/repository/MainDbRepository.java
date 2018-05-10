@@ -91,7 +91,9 @@ public class MainDbRepository implements DbInterface {
 
     @Override
     public void createBruger(Bruger bruger) {
-        String profilbillede = "s";
+        //definerer hvilket default-billede vi tildeler nye brugere.
+        String profilbilledeSti = "pictures/avatar.jpg";
+
         jdbc.update("INSERT INTO panther.brugere " +
                 "(mail, fornavn, efternavn, telefonnummer, kodeord, profilbillede_sti) " +
                 "VALUES ('" +
@@ -100,8 +102,7 @@ public class MainDbRepository implements DbInterface {
                 bruger.getEfternavn() + "', '"+
                 bruger.getTelefonnummer() + "', '" +
                 bruger.getKodeord() + "', '"+
-                profilbillede +"')");
-        System.out.println(bruger);
+                bruger.getProfilbilledeSti() +"')");
 
     }
 

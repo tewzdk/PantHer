@@ -17,34 +17,47 @@ public class HomeController {
     @Autowired
     private MainDbRepository repository;
 
-@GetMapping("/")
+    @GetMapping("/")
     public String index(){
         return "index";
     }
 
-@PostMapping ("/")
+
+
+    @PostMapping ("/opret-bruger")
     public String createAccount(@ModelAttribute Bruger bruger) {
     repository.createBruger(bruger);
 
-    return "index";
+    return "redirect:/";
     }
 
-@GetMapping("/lidt-om-os")
+    @PostMapping ("/login")
+    public String login(@ModelAttribute Bruger bruger) {
+
+        return "/panther";
+    }
+
+    @GetMapping("/lidt-om-os")
     public String omOs(Model model)
 {
     return "lidt-om-os";
 }
 
-@GetMapping ("/pantherprojektet")
-    public String panther(Model model)
+    @GetMapping ("/pantherprojektet")
+    public String pantherProjektet(Model model)
 {
     return "pantherprojektet";
 }
 
-@GetMapping ("/samarbejdspartnere")
+    @GetMapping ("/samarbejdspartnere")
     public String partnere(Model model)
 {
     return "samarbejdspartnere";
+}
+
+    @GetMapping ("/panther")
+    public String panther(Model model){
+        return "panther";
 }
 
 }
