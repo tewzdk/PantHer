@@ -22,42 +22,36 @@ public class HomeController {
         return "index";
     }
 
-
-
     @PostMapping ("/opret-bruger")
     public String createAccount(@ModelAttribute Bruger bruger) {
-    repository.createBruger(bruger);
-
+        repository.createBruger(bruger);
     return "redirect:/";
     }
 
     @PostMapping ("/login")
-    public String login(@ModelAttribute Bruger bruger) {
+    public String login() {
 
-        return "/panther";
+        return "panther";
     }
 
     @GetMapping("/lidt-om-os")
-    public String omOs(Model model)
-{
-    return "lidt-om-os";
-}
+    public String omOs(Model model) {
+        return "lidt-om-os";
+    }
 
     @GetMapping ("/pantherprojektet")
-    public String pantherProjektet(Model model)
-{
-    return "pantherprojektet";
-}
+    public String pantherProjektet(Model model) {
+        return "pantherprojektet";
+    }
 
     @GetMapping ("/samarbejdspartnere")
-    public String partnere(Model model)
-{
-    return "samarbejdspartnere";
-}
+    public String partnere(Model model) {
+        return "samarbejdspartnere";
+    }
 
     @GetMapping ("/panther")
     public String panther(Model model){
         return "panther";
-}
+    }
 
 }

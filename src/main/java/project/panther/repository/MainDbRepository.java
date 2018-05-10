@@ -100,9 +100,6 @@ public class MainDbRepository implements DbInterface {
 
     @Override
     public void createBruger(Bruger bruger) {
-        //definerer hvilket default-billede vi tildeler nye brugere.
-        String profilbilledeSti = "pictures/avatar.jpg";
-
         jdbc.update("INSERT INTO panther.brugere " +
                 "(mail, fornavn, efternavn, telefonnummer, kodeord, profilbillede_sti) " +
                 "VALUES ('" +
