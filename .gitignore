@@ -20,7 +20,9 @@
 *.rar
 
 #Intellij
-
+application.properties
+panther.iml
+pom.xml
 
 \.idea/
 
