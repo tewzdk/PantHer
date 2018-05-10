@@ -82,7 +82,7 @@ public class MainDbRepository implements DbInterface {
     }
 
     @Override // SKAL KUNNE LINKE BRUGER OG ADRESSE
-    public void createAdresse(Adresse adresse, Bruger bruger) {
+    public void createAdresse(Adresse adresse, int brugerId) {
         jdbc.update("INSERT INTO PantHer.adresser " +
                 "(adresse_id, gade, husnummer, etage, postnummer, bynavn) " +
                 "VALUES ('" +
@@ -92,8 +92,8 @@ public class MainDbRepository implements DbInterface {
                 adresse.getPostnummer() +"', '"+
                 adresse.getBynavn() + "')"
         );
-        
-        createBrugerAdresse(bruger.getBrugerID(),adresse.getAdresseID());
+
+        createBrugerAdresse(brugerId,adresse.getAdresseID());
 
     }
 
