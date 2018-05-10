@@ -16,6 +16,7 @@ public interface DbInterface {
     void createAdresse (Adresse adresse, Bruger bruger);
     void createBruger (Bruger bruger);
     void createMarkør (Markør markør);
+    void createBrugerAdresse (int brugerId, int adresseId);
     //READ
     Bruger readbruger(int id);
     Adresse readadresse(int id);

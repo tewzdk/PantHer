@@ -55,7 +55,7 @@ public class MainDbRepository implements DbInterface {
                     sqlRowSet.getString("husnummer"),
                     sqlRowSet.getString("etage"),
                     sqlRowSet.getInt("postnummer"),
-                    sqlRowSet.getString("bynavnbrugeradresser")));
+                    sqlRowSet.getString("bynavn")));
         }
         return adresses;
     }
@@ -84,7 +84,7 @@ public class MainDbRepository implements DbInterface {
     @Override // SKAL KUNNE LINKE BRUGER OG ADRESSE
     public void createAdresse(Adresse adresse, Bruger bruger) {
         jdbc.update("INSERT INTO PantHer.adresser " +
-                "(adresse_id, gade, husnummer, etage, postnummer, bynavnbrugeradresser) " +
+                "(adresse_id, gade, husnummer, etage, postnummer, bynavn) " +
                 "VALUES ('" +
                 adresse.getGade() +"', '"+
                 adresse.getHusnummer() + "', '"+
@@ -92,15 +92,11 @@ public class MainDbRepository implements DbInterface {
                 adresse.getPostnummer() +"', '"+
                 adresse.getBynavn() + "')"
         );
+        
+        createBrugerAdresse(bruger.getBrugerID(),adresse.getAdresseID());
 
-        jdbc.update("INSERT INTO PantHer.brugeradresser " +
-                "(bruger_id, adresse_id) " +
-                "VALUES ('" +
-                bruger.getBrugerID() + "', '" +
-                adresse.getAdresseID()   + "')"
-
-        );
     }
+
 
     @Override
     public void createBruger(Bruger bruger) {
@@ -131,6 +127,17 @@ public class MainDbRepository implements DbInterface {
     }
 
     @Override
+    public void createBrugerAdresse(int brugerId, int adresseId) {
+        jdbc.update("INSERT INTO PantHer.brugeradresser " +
+                "(bruger_id, adresse_id) " +
+                "VALUES ('" +
+                brugerId + "', '" +
+                adresseId   + "')"
+
+        );
+    }
+
+    @Override
     public Bruger readbruger(int id) {
         sqlRowSet = jdbc.queryForRowSet("SELECT * FROM PantHer WHERE bruger_id ='"+ id + "'");
 
@@ -152,7 +159,7 @@ public class MainDbRepository implements DbInterface {
 
     @Override
     public Adresse readadresse(int id)  {
-        sqlRowSet = jdbc.queryForRowSet("SELECT panther.adresser.gade, panther.adresser.husnummer, panther.adresser.etage, panther.adresser.postnummer, panther.adresser.bynavnbrugeradresser FROM PantHer.adresser " +
+        sqlRowSet = jdbc.queryForRowSet("SELECT panther.adresser.gade, panther.adresser.husnummer, panther.adresser.etage, panther.adresser.postnummer, panther.adresser.bynavn FROM PantHer.adresser " +
                 "INNER JOIN panther.brugeradresser ON adresser.adresse_id = brugeradresser.adresse_id" +
                 "INNER JOIN panther.brugere ON brugeradresser.bruger_id = brugere.bruger_id " +
                 "WHERE adresse_id ='"+ id + "'");
@@ -164,7 +171,7 @@ public class MainDbRepository implements DbInterface {
                     sqlRowSet.getString("husnummer"),
                     sqlRowSet.getString("etage"),
                     sqlRowSet.getInt("postnummer"),
-                    sqlRowSet.getString("bynavnbrugeradresser"));
+                    sqlRowSet.getString("bynavn"));
         }
         return null;
     }
@@ -210,7 +217,7 @@ public class MainDbRepository implements DbInterface {
                 "husnummer = '"+ adresse.getHusnummer() + "', " +
                 "etage = '"+ adresse.getEtage() + "', " +
                 "postnummer = '"+ adresse.getPostnummer() + "', " +
-                "bynavnbrugeradresser = '"+ adresse.getBynavn() +
+                "bynavn = '"+ adresse.getBynavn() +
 
                 "'WHERE adresse_id ='"+ adresse.getAdresseID() + "'");
     }
