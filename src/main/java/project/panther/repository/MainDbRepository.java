@@ -10,6 +10,8 @@ import project.panther.model.Bruger;
 import project.panther.model.Markør;
 import project.panther.model.Pant;
 
+import javax.crypto.EncryptedPrivateKeyInfo;
+import java.security.CryptoPrimitive;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -79,14 +81,25 @@ public class MainDbRepository implements DbInterface {
         return markør;
     }
 
-    @Override
-    public void createAdresse(Adresse adresse) {
+    @Override // SKAL KUNNE LINKE BRUGER OG ADRESSE
+    public void createAdresse(Adresse adresse, Bruger bruger) {
         jdbc.update("INSERT INTO PantHer.adresser " +
                 "(adresse_id, gade, husnummer, etage, postnummer, bynavnbrugeradresser) " +
-                "VALUES ('" + adresse.getGade()
-                +"', '"+ adresse.getHusnummer()
-                + "', '"+ adresse.getEtage() +"', '"
-                + adresse.getPostnummer() +"', '"+ adresse.getBynavn() + "')");
+                "VALUES ('" +
+                adresse.getGade() +"', '"+
+                adresse.getHusnummer() + "', '"+
+                adresse.getEtage() +"', '" +
+                adresse.getPostnummer() +"', '"+
+                adresse.getBynavn() + "')"
+        );
+
+        jdbc.update("INSERT INTO PantHer.brugeradresser " +
+                "(bruger_id, adresse_id) " +
+                "VALUES ('" +
+                bruger.getBrugerID() + "', '" +
+                adresse.getAdresseID()   + "')"
+
+        );
     }
 
     @Override
@@ -139,7 +152,10 @@ public class MainDbRepository implements DbInterface {
 
     @Override
     public Adresse readadresse(int id)  {
-        sqlRowSet = jdbc.queryForRowSet("SELECT * FROM PantHer WHERE adresse_id ='"+ id + "'");
+        sqlRowSet = jdbc.queryForRowSet("SELECT panther.adresser.gade, panther.adresser.husnummer, panther.adresser.etage, panther.adresser.postnummer, panther.adresser.bynavnbrugeradresser FROM PantHer.adresser " +
+                "INNER JOIN panther.brugeradresser ON adresser.adresse_id = brugeradresser.adresse_id" +
+                "INNER JOIN panther.brugere ON brugeradresser.bruger_id = brugere.bruger_id " +
+                "WHERE adresse_id ='"+ id + "'");
 
         while (sqlRowSet.next()) {
             return new Adresse(

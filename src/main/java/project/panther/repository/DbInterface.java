@@ -13,7 +13,7 @@ public interface DbInterface {
     List<Adresse> readAllAdresse();
     List<Markør> readAllMarkør();
     //CREATE
-    void createAdresse (Adresse adresse);
+    void createAdresse (Adresse adresse, Bruger bruger);
     void createBruger (Bruger bruger);
     void createMarkør (Markør markør);
     //READ
@@ -28,6 +28,7 @@ public interface DbInterface {
     void deleteBruger(int id);
     void deleteAdresse (int id);
     void deleteMarkør (int id);
+
 
 
 }
