@@ -1,6 +1,6 @@
 //functions for google map
 function initMap(){
-
+    
     //map styles
     var myStyles =[
         {

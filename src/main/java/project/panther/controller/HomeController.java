@@ -1,6 +1,7 @@
 package project.panther.controller;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import project.panther.model.Bruger;
 import project.panther.model.GoogleMapMarkerList;
 import project.panther.repository.MainDbRepository;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 
 @Controller
 public class HomeController {
@@ -29,18 +34,24 @@ public class HomeController {
     }
 
     @PostMapping ("/login")
-    public String login(Model model) {
+    public String login() {
 
-        return mainpage(model);
+        return mainpage();
     }
 
     @PostMapping ("/mainpage")
-    public String mainpage(Model model) {
+    public String mainpage() {
 
         //opretter en markørliste
         GoogleMapMarkerList googleMapMarkerList = new GoogleMapMarkerList();
         googleMapMarkerList.setMarkerList(repository.readAllGoogleMapMarkers());
-        model.addAttribute(googleMapMarkerList.getMarkerList());
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            mapper.writeValue(new File("googlemapmarkers.json"), googleMapMarkerList.getMarkerList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return "/mainpage";
     }
