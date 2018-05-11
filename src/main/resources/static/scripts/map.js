@@ -1,6 +1,6 @@
 //functions for google map
 function initMap(){
-    
+
     //map styles
     var myStyles =[
         {
@@ -19,19 +19,16 @@ function initMap(){
         disableDefaultUI: true,
         center: {lat: 55.676098, lng: 12.568337},
         styles: myStyles
-    }
+    };
 
     //new map
     var map = new google.maps.Map(document.getElementById('map'), options);
 
-    getInitMarkers(map);
-    placeInitMarkers(initMarkers, map)
+    getInitMarkers();
 
 }
 
 //functions for markers
-var initMarkers = [];
-
 function addMarker(props){
     var marker = new google.maps.Marker({
         position: props.coords,
@@ -50,19 +47,9 @@ function addMarker(props){
     });
 }
 
-function getInitMarkers(map){
+function getInitMarkers(){
     //TODO kæmpe arraysammenkobling med database.
-    initMarkers[0] = {
-        coords:{lat: 55.676098, lng: 12.568337},
-        content:'<h4>Estimeret beløb:</h4>' +
-        '<p>30 kr.</p>' +
-        '<h4>Adresse:</h4> ' +
-        '<p>Rådhuspladsen 2</p>',
-        map:map
-    }
-}
-function placeInitMarkers(initMarkers, map){
-    for(var i = 0;i < initMarkers.length; i++){
-        addMarker(initMarkers[i]);
-    }
+    $.getJSON("/fetch-markers", function(fetchedMarkers){
+        console.log(fetchedMarkers);
+    });
 }

@@ -1,20 +1,14 @@
 package project.panther.controller;
 
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import project.panther.model.Bruger;
 import project.panther.model.GoogleMapMarkerList;
 import project.panther.repository.MainDbRepository;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
+import java.util.List;
 
 @Controller
 public class HomeController {
@@ -42,18 +36,17 @@ public class HomeController {
     @PostMapping ("/mainpage")
     public String mainpage() {
 
+        return "/mainpage";
+    }
+
+    @RequestMapping(value = "/fetch-markers", method= RequestMethod.GET, produces="application/json")
+    @ResponseBody
+    public List fetchMarkers(){
         //opretter en markørliste
         GoogleMapMarkerList googleMapMarkerList = new GoogleMapMarkerList();
         googleMapMarkerList.setMarkerList(repository.readAllGoogleMapMarkers());
-        ObjectMapper mapper = new ObjectMapper();
 
-        try {
-            mapper.writeValue(new File("googlemapmarkers.json"), googleMapMarkerList.getMarkerList());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return "/mainpage";
+        return googleMapMarkerList.getMarkerList(); //viewmodel
     }
 
     @GetMapping("/lidt-om-os")

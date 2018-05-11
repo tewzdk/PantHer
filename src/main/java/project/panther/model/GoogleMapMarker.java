@@ -6,16 +6,16 @@ import java.time.LocalDateTime;
 public class GoogleMapMarker {
 
     private int markerID;
-    private double lattitude;
+    private double latitude;
     private double longtitude;
     private LocalDateTime oprettelsesTidspunkt;
     private LocalDateTime afslutningsTidspunkt;
     private Pant pant;
 
 
-    public GoogleMapMarker(int markerID, double lattitude, double longtitude, LocalDateTime oprettelsesTidspunkt, LocalDateTime afslutningsTidspunkt, Pant pant) {
+    public GoogleMapMarker(int markerID, double latitude, double longtitude, LocalDateTime oprettelsesTidspunkt, LocalDateTime afslutningsTidspunkt, Pant pant) {
         this.markerID = markerID;
-        this.lattitude = lattitude;
+        this.latitude = latitude;
         this.longtitude = longtitude;
         this.oprettelsesTidspunkt = oprettelsesTidspunkt;
         this.afslutningsTidspunkt = afslutningsTidspunkt;
@@ -30,12 +30,12 @@ public class GoogleMapMarker {
         this.markerID = markerID;
     }
 
-    public double getLattitude() {
-        return lattitude;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setLattitude(int lattitude) {
-        this.lattitude = lattitude;
+    public void setLattitude(int latitude) {
+        this.latitude = latitude;
     }
 
     public double getLongtitude() {

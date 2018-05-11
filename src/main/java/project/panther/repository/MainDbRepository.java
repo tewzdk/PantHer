@@ -224,7 +224,7 @@ public class MainDbRepository implements DbInterface {
     public void readGoogleMapMarker(GoogleMapMarker googleMapMarker) {
         jdbc.update("INSERT INTO PantHer.markører " +
                 "(markør_id, latitude, longitude, oprettelsesTidspunkt, afslutningsTidspunkt, pant) " +
-                "VALUES ('" + googleMapMarker.getLattitude()
+                "VALUES ('" + googleMapMarker.getLatitude()
                 +"', '"+ googleMapMarker.getLongtitude()
                 + "', '"+ googleMapMarker.getOprettelsesTidspunkt() +"', '"
                 + googleMapMarker.getAfslutningsTidspunkt() +"', '"+ googleMapMarker.getPant() +"')");
@@ -234,7 +234,7 @@ public class MainDbRepository implements DbInterface {
     @Override
     public void updateGoogleMapMarker(GoogleMapMarker marker) {
         jdbc.update("UPDATE panther.adresser SET " +
-                "lattitude = '" + marker.getLattitude() + "', " +
+                "lattitude = '" + marker.getLatitude() + "', " +
                 "longtitude = '"+ marker.getLongtitude() + "', " +
                 "oprettelsestidspunkt = '"+ marker.getOprettelsesTidspunkt() + "', " +
                 "afslutningsTidspunkt = '"+ marker.getAfslutningsTidspunkt() + "', " +
