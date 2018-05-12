@@ -13,12 +13,11 @@ public class FormattedMarkerData {
 
     //pant
     private int estimeretBeloeb;
-    private String pantBilledSti;
+    private String pantbilledeSti;
 
     //user
     private String fornavn;
     private String efternavn;
-    private String mail;
     private String telefonnummer;
     private String profilbilledeSti;
 
@@ -27,10 +26,9 @@ public class FormattedMarkerData {
                             LocalDateTime oprettelsesTidspunkt,
                             LocalDateTime afslutningsTidspunkt,
                             int estimeretBeloeb,
-                            String pantBilledSti,
+                            String pantbilledeSti,
                             String fornavn,
                             String efternavn,
-                            String mail,
                             String telefonnummer,
                             String profilbilledeSti
     ) {
@@ -43,10 +41,9 @@ public class FormattedMarkerData {
         this.afslutningsTidspunkt = afslutningsTidspunkt;
 
         this.estimeretBeloeb = estimeretBeloeb;
-        this.pantBilledSti = pantBilledSti;
+        this.pantbilledeSti = pantbilledeSti;
         this.fornavn = fornavn;
         this.efternavn = efternavn;
-        this.mail = mail;
         this.telefonnummer = telefonnummer;
         this.profilbilledeSti = profilbilledeSti;
     }
@@ -91,12 +88,12 @@ public class FormattedMarkerData {
         this.estimeretBeloeb = estimeretBeloeb;
     }
 
-    public String getPantBilledSti() {
-        return pantBilledSti;
+    public String getPantbilledeSti() {
+        return pantbilledeSti;
     }
 
-    public void setPantBilledSti(String pantBilledSti) {
-        this.pantBilledSti = pantBilledSti;
+    public void setPantbilledeSti(String pantBilledSti) {
+        this.pantbilledeSti = pantBilledSti;
     }
 
     public String getFornavn() {
@@ -113,14 +110,6 @@ public class FormattedMarkerData {
 
     public void setEfternavn(String efternavn) {
         this.efternavn = efternavn;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
     }
 
     public String getTelefonnummer() {

@@ -62,7 +62,6 @@ public class HomeController {
                     m.getPant().getPantBilledSti(),
                     b.getFornavn(),
                     b.getEfternavn(),
-                    b.getMail(),
                     b.getTelefonnummer(),
                     b.getProfilbilledeSti()
             ));

@@ -1,30 +1,29 @@
 //functions for google map
 var map;
 
+//map styles
+var myStyles =[
+    {
+        featureType: "poi",
+        elementType: "labels",
+        stylers: [
+            { visibility: "off"}
+        ]
+    }
+
+];
+
+//map options
+var mapOptions = {
+    zoom:17,
+    disableDefaultUI: true,
+    center: {lat: 55.676098, lng: 12.568337},
+    styles: myStyles
+};
+
 function initMap(){
-
-    //map styles
-    var myStyles =[
-        {
-            featureType: "poi",
-            elementType: "labels",
-            stylers: [
-                { visibility: "off"}
-            ]
-        }
-
-    ];
-
-    //map options
-    var options = {
-        zoom:17,
-        disableDefaultUI: true,
-        center: {lat: 55.676098, lng: 12.568337},
-        styles: myStyles
-    };
-
     //new map
-    map = new google.maps.Map(document.getElementById('map'), options);
+    map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
     getInitMarkers();
 }
@@ -51,18 +50,31 @@ function addMarker(props){
 }
 function getInitMarkers(){
     $.getJSON("/fetch-markers", function(fetchedMarkers){
+        console.log(fetchedMarkers);
         for(var i = 0; i< fetchedMarkers.length; i++){
-            console.log(fetchedMarkers);
+
+            //defining attributes
             var latitude = parseFloat(fetchedMarkers[i].latitude);
             var longitude = parseFloat(fetchedMarkers[i].longitude);
+            var profilbilledeSti = fetchedMarkers[i].profilbilledeSti;
+            var fornavn = fetchedMarkers[i].fornavn;
+            var efternavn = fetchedMarkers[i].efternavn;
+            var telefonnummer = fetchedMarkers[i].telefonnummer;
+            var pantbilledeSti = fetchedMarkers[i].pantbilledeSti;
+            var estimeretBeloeb = fetchedMarkers[i].estimeretBeloeb;
 
             addMarker({
                 coords:{lat: latitude, lng: longitude},
-                content:'<img src=' + fetchedMarkers[i].profilbilledeSti + '/>' +
-                        '<h3>' + fetchedMarkers[i].fornavn + ' ' + fetchedMarkers[i].efternavn +'</h3>' +
-                        
-                        '<h4>Estimeret beløb:</h4><p>' +
-                        fetchedMarkers[i].estimeretBeloeb + ' kr.</p>'
+                content:'<div class="infoWindow">' +
+                            '<h3>' + fornavn + ' ' + efternavn +'</h3>' +
+                            '<img class="profil-billede" src=' + profilbilledeSti + '/>' +
+                            '<p>&emsp;' + telefonnummer + '&ensp;<i class="fas fa-phone"></i></p>' +
+                            '<hr>' + '<br>' +
+                            '<div class="pant-container">' +
+                                '<img class="pant-billede" src=' + pantbilledeSti + '/>' +
+                                '<h4>Estimeret beløb: ' + estimeretBeloeb + ' kr.</h4>' +
+                            '</div>' +
+                        '</div>'
             });
         }
     });

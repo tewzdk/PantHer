@@ -3,7 +3,7 @@ package project.panther.model;
 public class Pant {
 
     private int estimeretBeloeb;
-    private String pantBilledSti;
+    private String pantBilledSti = "pictures/defaultPantBillede.jpg";
 
     public Pant(int estimeretBeloeb, String pantBilledSti) {
         this.estimeretBeloeb = estimeretBeloeb;
