@@ -1,6 +1,4 @@
 //functions for google map
-var map;
-
 function initMap(){
 
     //map styles
@@ -21,25 +19,24 @@ function initMap(){
         disableDefaultUI: true,
         center: {lat: 55.676098, lng: 12.568337},
         styles: myStyles
-    };
+    }
 
     //new map
-    map = new google.maps.Map(document.getElementById('map'), options);
+    var map = new google.maps.Map(document.getElementById('map'), options);
 
-    getInitMarkers();
-    addMarker({
-        coords:{lat: 55.676098, lng: 12.568337},
-        content:"s"
-    });
+    getInitMarkers(map);
+    placeInitMarkers(initMarkers, map)
+
 }
 
 //functions for markers
-function addMarker(props){
+var initMarkers = [];
 
+function addMarker(props){
     var marker = new google.maps.Marker({
         position: props.coords,
         content: props.content,
-        map:map
+        map: props.map
     });
 
     if(props.content){
@@ -49,24 +46,23 @@ function addMarker(props){
     }
 
     marker.addListener('click', function(){
-        infoWindow.open(map, marker);
-    });
-
-}
-function getInitMarkers(){
-    $.getJSON("/fetch-markers", function(fetchedMarkers){
-        for(var i = 0; i< fetchedMarkers.length; i++){
-
-            var latitude = parseFloat(fetchedMarkers[i].latitude);
-            var longitude = parseFloat(fetchedMarkers[i].longitude);
-
-            addMarker({
-                coords:{lat: latitude, lng: longitude},
-                content:'<'
-            });
-        }
+        infoWindow.open(props.map, marker);
     });
 }
 
-
-
+function getInitMarkers(map){
+    //TODO kæmpe arraysammenkobling med database.
+    initMarkers[0] = {
+        coords:{lat: 55.676098, lng: 12.568337},
+        content:'<h4>Estimeret beløb:</h4>' +
+        '<p>30 kr.</p>' +
+        '<h4>Adresse:</h4> ' +
+        '<p>Rådhuspladsen 2</p>',
+        map:map
+    }
+}
+function placeInitMarkers(initMarkers, map){
+    for(var i = 0;i < initMarkers.length; i++){
+        addMarker(initMarkers[i]);
+    }
+}

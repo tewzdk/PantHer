@@ -135,27 +135,6 @@ public class MainDbRepository implements DbInterface {
         return null;
     }
 
-    public GoogleMapMarker readGoogleMapMarker(int id) {
-        sqlRowSet = jdbc.queryForRowSet("SELECT * FROM panther WHERE markør_id = '" + id + "'");
-
-        while (sqlRowSet.next()) {
-            int estimeret_beløb = sqlRowSet.getInt("estimeret_beløb");
-            String pantbillede_sti = sqlRowSet.getString("pantbillede_sti");
-            Pant pant = new Pant(estimeret_beløb, pantbillede_sti);
-
-            return new GoogleMapMarker(
-                    sqlRowSet.getInt("markør_id"),
-                    sqlRowSet.getInt("lattitude"),
-                    sqlRowSet.getInt("longtitude"),
-                    sqlRowSet.getTimestamp("oprettelsestidspunkt").toLocalDateTime(),
-                    sqlRowSet.getTimestamp("afslutningstidspunkt").toLocalDateTime(),
-                    pant);
-        }
-        return null;
-    }
-
-
-
     @Override
     public void updateBruger(Bruger bruger) {
         jdbc.update("UPDATE panther.adresser SET " +
@@ -211,6 +190,7 @@ public class MainDbRepository implements DbInterface {
 
             googleMapMarkerList.add(new GoogleMapMarker(
                     sqlRowSet.getInt("markør_id"),
+                    sqlRowSet.getInt("bruger_id"),
                     sqlRowSet.getDouble("latitude"),
                     sqlRowSet.getDouble("longitude"),
                     sqlRowSet.getTimestamp("oprettelsestidspunkt").toLocalDateTime(),
@@ -219,23 +199,31 @@ public class MainDbRepository implements DbInterface {
         }
         return googleMapMarkerList;
     }
+    public GoogleMapMarker readGoogleMapMarker(int id) {
+        sqlRowSet = jdbc.queryForRowSet("SELECT * FROM panther WHERE markør_id = '" + id + "'");
 
-    @Override
-    public void readGoogleMapMarker(GoogleMapMarker googleMapMarker) {
-        jdbc.update("INSERT INTO PantHer.markører " +
-                "(markør_id, latitude, longitude, oprettelsesTidspunkt, afslutningsTidspunkt, pant) " +
-                "VALUES ('" + googleMapMarker.getLatitude()
-                +"', '"+ googleMapMarker.getLongtitude()
-                + "', '"+ googleMapMarker.getOprettelsesTidspunkt() +"', '"
-                + googleMapMarker.getAfslutningsTidspunkt() +"', '"+ googleMapMarker.getPant() +"')");
+        while (sqlRowSet.next()) {
+            int estimeret_beløb = sqlRowSet.getInt("estimeret_beløb");
+            String pantbillede_sti = sqlRowSet.getString("pantbillede_sti");
+            Pant pant = new Pant(estimeret_beløb, pantbillede_sti);
 
+            return new GoogleMapMarker(
+                    sqlRowSet.getInt("markør_id"),
+                    sqlRowSet.getInt("bruger_id"),
+                    sqlRowSet.getInt("lattitude"),
+                    sqlRowSet.getInt("longtitude"),
+                    sqlRowSet.getTimestamp("oprettelsestidspunkt").toLocalDateTime(),
+                    sqlRowSet.getTimestamp("afslutningstidspunkt").toLocalDateTime(),
+                    pant);
+        }
+        return null;
     }
 
     @Override
     public void updateGoogleMapMarker(GoogleMapMarker marker) {
         jdbc.update("UPDATE panther.adresser SET " +
                 "lattitude = '" + marker.getLatitude() + "', " +
-                "longtitude = '"+ marker.getLongtitude() + "', " +
+                "longtitude = '"+ marker.getLongitude() + "', " +
                 "oprettelsestidspunkt = '"+ marker.getOprettelsesTidspunkt() + "', " +
                 "afslutningsTidspunkt = '"+ marker.getAfslutningsTidspunkt() + "', " +
                 "pant = '"+ marker.getPant() +
