@@ -98,7 +98,7 @@ public class MainDbRepository implements DbInterface {
 
     @Override
     public Bruger readbruger(int id) {
-        sqlRowSet = jdbc.queryForRowSet("SELECT * FROM PantHer WHERE bruger_id ='"+ id + "'");
+        sqlRowSet = jdbc.queryForRowSet("SELECT * FROM brugere WHERE bruger_id ='"+ id + "'");
 
         while (sqlRowSet.next()) {
             return new Bruger(

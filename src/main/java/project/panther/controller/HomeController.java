@@ -5,9 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.panther.model.Bruger;
+import project.panther.model.GoogleMapMarker;
 import project.panther.model.GoogleMapMarkerList;
+import project.panther.model.FormattedMarkerData;
 import project.panther.repository.MainDbRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -41,12 +44,31 @@ public class HomeController {
 
     @RequestMapping(value = "/fetch-markers", method= RequestMethod.GET, produces="application/json")
     @ResponseBody
-    public List fetchMarkers(){
+    public List formattedMarkerData(){
         //opretter en markørliste
         GoogleMapMarkerList googleMapMarkerList = new GoogleMapMarkerList();
         googleMapMarkerList.setMarkerList(repository.readAllGoogleMapMarkers());
 
-        return googleMapMarkerList.getMarkerList(); //viewmodel
+        //her sørger vi for udelukkende at sende brugbar data med
+        List<FormattedMarkerData> formattedData = new ArrayList<>();
+        for (int i = 0; i < googleMapMarkerList.getMarkerList().size(); i++) {
+            GoogleMapMarker m = googleMapMarkerList.getMarkerList().get(i);
+            Bruger b = repository.readbruger(m.getBrugerID());
+            formattedData.add(new FormattedMarkerData(
+                    m.getLatitude(), m.getLongitude(),
+                    m.getOprettelsesTidspunkt(),
+                    m.getAfslutningsTidspunkt(),
+                    m.getPant().getEstimeretBeloeb(),
+                    m.getPant().getPantBilledSti(),
+                    b.getFornavn(),
+                    b.getEfternavn(),
+                    b.getMail(),
+                    b.getTelefonnummer(),
+                    b.getProfilbilledeSti()
+            ));
+        }
+
+        return formattedData;                          //viewmodel
     }
 
     @GetMapping("/lidt-om-os")

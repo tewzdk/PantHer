@@ -27,10 +27,6 @@ function initMap(){
     map = new google.maps.Map(document.getElementById('map'), options);
 
     getInitMarkers();
-    addMarker({
-        coords:{lat: 55.676098, lng: 12.568337},
-        content:"s"
-    });
 }
 
 //functions for markers
@@ -56,14 +52,17 @@ function addMarker(props){
 function getInitMarkers(){
     $.getJSON("/fetch-markers", function(fetchedMarkers){
         for(var i = 0; i< fetchedMarkers.length; i++){
-
+            console.log(fetchedMarkers);
             var latitude = parseFloat(fetchedMarkers[i].latitude);
             var longitude = parseFloat(fetchedMarkers[i].longitude);
 
             addMarker({
                 coords:{lat: latitude, lng: longitude},
-                content:'<h4>Estimeret beløb:</h4><p>' +
-                        fetchedMarkers[i].pant.estimeretBeloeb + ' kr.</p>'
+                content:'<img src=' + fetchedMarkers[i].profilbilledeSti + '/>' +
+                        '<h3>' + fetchedMarkers[i].fornavn + ' ' + fetchedMarkers[i].efternavn +'</h3>' +
+                        
+                        '<h4>Estimeret beløb:</h4><p>' +
+                        fetchedMarkers[i].estimeretBeloeb + ' kr.</p>'
             });
         }
     });
