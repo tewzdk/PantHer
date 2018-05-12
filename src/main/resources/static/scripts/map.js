@@ -1,5 +1,6 @@
 //functions for google map
 var map;
+var infowindow;
 
 //map styles
 var myStyles =[
@@ -24,6 +25,7 @@ var mapOptions = {
 function initMap(){
     //new map
     map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    infowindow = new google.maps.InfoWindow();
 
     getInitMarkers();
 }
@@ -37,20 +39,14 @@ function addMarker(props){
         map:map
     });
 
-    if(props.content){
-        var infoWindow = new google.maps.InfoWindow({
-            content: props.content
-        })
-    }
-
-    marker.addListener('click', function(){
-        infoWindow.open(map, marker);
+    google.maps.event.addListener(marker,'click', function(){
+        infowindow.setContent(marker.content);
+        infowindow.open(map, this);
     });
 
 }
 function getInitMarkers(){
     $.getJSON("/fetch-markers", function(fetchedMarkers){
-        console.log(fetchedMarkers);
         for(var i = 0; i< fetchedMarkers.length; i++){
 
             //defining attributes
