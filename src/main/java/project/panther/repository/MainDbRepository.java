@@ -210,7 +210,7 @@ public class MainDbRepository implements DbInterface {
             return new GoogleMapMarker(
                     sqlRowSet.getInt("markør_id"),
                     sqlRowSet.getInt("bruger_id"),
-                    sqlRowSet.getInt("lattitude"),
+                    sqlRowSet.getInt("latitude"),
                     sqlRowSet.getInt("longtitude"),
                     sqlRowSet.getTimestamp("oprettelsestidspunkt").toLocalDateTime(),
                     sqlRowSet.getTimestamp("afslutningstidspunkt").toLocalDateTime(),

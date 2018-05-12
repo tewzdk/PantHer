@@ -1,6 +1,6 @@
 package project.panther.model;
 
-public class Administrator {
+public class Administrator extends Bruger {
 
     private void sletBruger() {
 

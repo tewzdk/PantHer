@@ -62,7 +62,8 @@ function getInitMarkers(){
 
             addMarker({
                 coords:{lat: latitude, lng: longitude},
-                content:'<'
+                content:'<h4>Estimeret beløb:</h4><p>' +
+                        fetchedMarkers[i].pant.estimeretBeloeb + ' kr.</p>'
             });
         }
     });

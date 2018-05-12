@@ -2,20 +2,20 @@ package project.panther.model;
 
 public class Pant {
 
-    private int estimeretBeløb;
+    private int estimeretBeloeb;
     private String pantBilledSti;
 
-    public Pant(int estimeretBeløb, String pantBilledSti) {
-        this.estimeretBeløb = estimeretBeløb;
+    public Pant(int estimeretBeloeb, String pantBilledSti) {
+        this.estimeretBeloeb = estimeretBeloeb;
         this.pantBilledSti = pantBilledSti;
     }
 
-    public int getEstimeretBeløb() {
-        return estimeretBeløb;
+    public int getEstimeretBeloeb() {
+        return estimeretBeloeb;
     }
 
-    public void setEstimeretBeløb(int estimeretBeløb) {
-        this.estimeretBeløb = estimeretBeløb;
+    public void setEstimeretBeloeb(int estimeretBeloeb) {
+        this.estimeretBeloeb = estimeretBeloeb;
     }
 
     public String getPantBilledSti() {
