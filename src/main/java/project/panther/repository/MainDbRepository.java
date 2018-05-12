@@ -97,9 +97,24 @@ public class MainDbRepository implements DbInterface {
     }
 
     @Override
-    public Bruger readbruger(int id) {
+    public Bruger readBruger(int id) {
         sqlRowSet = jdbc.queryForRowSet("SELECT * FROM brugere WHERE bruger_id ='"+ id + "'");
 
+        while (sqlRowSet.next()) {
+            return new Bruger(
+                    sqlRowSet.getInt("bruger_id"),
+                    sqlRowSet.getString("kodeord"),
+                    sqlRowSet.getString("fornavn"),
+                    sqlRowSet.getString("efternavn"),
+                    sqlRowSet.getString("mail"),
+                    sqlRowSet.getString("telefonnummer"),
+                    sqlRowSet.getString("profilbillede_sti"));
+        }
+        return null;
+    }
+
+    public Bruger readBruger(String mail) {
+        sqlRowSet = jdbc.queryForRowSet("SELECT * FROM brugere WHERE mail ='"+ mail + "'");
         while (sqlRowSet.next()) {
             return new Bruger(
                     sqlRowSet.getInt("bruger_id"),

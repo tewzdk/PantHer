@@ -29,18 +29,31 @@ public class HomeController {
         repository.createBruger(bruger);
     return "redirect:/";
     }
+    
+    //----------------------------------------------------------------------------------
+    //TODO lav et ordentlig loginsystem.
 
-    @PostMapping ("/login")
-    public String login() {
+    //skal slettes:
+    boolean loggedIn = false;
 
-        return mainpage();
+    @PostMapping ("/login") //simpelt login-system
+    public String login(@ModelAttribute Bruger bruger) {
+        Bruger compareBruger = repository.readBruger(bruger.getMail());
+        if(bruger.getKodeord().equals(compareBruger.getKodeord())) {
+            loggedIn = true;
+            return "redirect:/mainpage";
+        }
+        return "redirect:/";
     }
 
-    @PostMapping ("/mainpage")
+    @GetMapping ("/mainpage")
     public String mainpage() {
-
-        return "/mainpage";
+        if(loggedIn) {
+            return "/mainpage";
+        }
+        return "redirect:/";
     }
+    //----------------------------------------------------------------------------------
 
     @RequestMapping(value = "/fetch-markers", method= RequestMethod.GET, produces="application/json")
     @ResponseBody
@@ -53,7 +66,7 @@ public class HomeController {
         List<FormattedMarkerData> formattedData = new ArrayList<>();
         for (int i = 0; i < googleMapMarkerList.getMarkerList().size(); i++) {
             GoogleMapMarker m = googleMapMarkerList.getMarkerList().get(i);
-            Bruger b = repository.readbruger(m.getBrugerID());
+            Bruger b = repository.readBruger(m.getBrugerID());
             formattedData.add(new FormattedMarkerData(
                     m.getLatitude(), m.getLongitude(),
                     m.getOprettelsesTidspunkt(),
