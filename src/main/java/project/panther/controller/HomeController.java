@@ -29,7 +29,7 @@ public class HomeController {
         repository.createBruger(bruger);
     return "redirect:/";
     }
-    
+
     //----------------------------------------------------------------------------------
     //TODO lav et ordentlig loginsystem.
 
@@ -49,6 +49,7 @@ public class HomeController {
     @GetMapping ("/mainpage")
     public String mainpage() {
         if(loggedIn) {
+            loggedIn = false;
             return "/mainpage";
         }
         return "redirect:/";

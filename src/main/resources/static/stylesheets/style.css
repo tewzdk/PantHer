@@ -12,6 +12,11 @@
     --footer-height: 5rem;
     --modal-animation-duration: 0.8s;
 }
+*{
+    margin: 0;
+    padding: 0;
+}
+
 html{
     padding: 0 0 0 0;
     margin: 0 0 0 0;
@@ -46,10 +51,6 @@ h3 {
 }
 h4 {
     font-weight: normal;
-}
-
-hr {
-    color: var(--light);
 }
 
 label{
@@ -121,7 +122,7 @@ button:hover{
 
 .main-nav{
     background: #141414;
-    padding: 1px 1px;
+    padding: 0.8rem 0;
 
 }
 
@@ -244,7 +245,6 @@ button:hover{
 .info {
     font-size: 18px;
     grid-area: info;
-    margin: 0 0 10px 0;
     padding: 0 1rem;
 
 }
@@ -280,10 +280,12 @@ button:hover{
 
 .infoWindow h3 {
     font-size: 18px;
+    margin-bottom: 7px;
 }
 
 .infoWindow p {
     font-size: 14px;
+    margin-bottom: 7px;
 }
 
 .infoWindow .profil-billede{
@@ -311,7 +313,7 @@ button:hover{
 }
 
 .pant-container h4 {
-    bottom: 20%;
+    bottom: 25%;
     width: 100%;
     padding: 5% 0;
     position: absolute;
@@ -332,11 +334,14 @@ footer {
 footer p {
     text-align: right;
     font-size: 10px;
-    margin: 10px;
+    padding-right: 10px;
 }
 footer a {
     color: var(--dark);
     text-decoration: none;
+}
+footer a:hover{
+    color: darkgrey;
 }
 
 footer ul {
@@ -347,6 +352,11 @@ footer ul {
     text-align: center;
 }
 
+footer hr {
+    margin: 5px;
+    color: var(--light);
+}
+
 @media (max-width: 700px){
 
     .top-container{
@@ -355,12 +365,9 @@ footer ul {
         'info'
         'article';
     }
-    .info{
-        margin: -10px 0 0 0;
-    }
+
     .article {
         padding: 0 1rem;
-        margin: -25px 0 0 0;
     }
 
     footer ul {
