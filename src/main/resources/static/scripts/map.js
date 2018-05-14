@@ -40,6 +40,7 @@ function initMap(){
             lng: pos.coords.longitude
         };
         map.setCenter(currentposition);
+        addDeviceMarker(currentposition)
     }
     function error(){
         console.log('unable to find current geolocation');
@@ -65,6 +66,14 @@ function addMarker(props){
     });
 
 }
+function addDeviceMarker(pos){
+    var marker = new google.maps.Marker({
+        position: pos,
+        map: map,
+        icon: 'pictures/userMarker.png'
+    });
+}
+
 function getInitMarkers(){
     $.getJSON("/fetch-markers", function(fetchedMarkers){
         for(var i = 0; i< fetchedMarkers.length; i++){
