@@ -120,13 +120,13 @@ button:hover{
 
 /* navigation bar */
 
-.main-nav{
+.nav{
     background: #141414;
     padding: 0.8rem 0;
 
 }
 
-.main-nav ul{
+.nav ul{
     padding: 0;
     text-align: center;
     display: grid;
@@ -145,12 +145,12 @@ button:hover{
     color: var(--light);
 }
 
-.main-nav #create-user-btn{
+.nav #create-user-btn{
     background-color: var(--blue);
     box-shadow: none;
 }
 
-.main-nav #login-btn{
+.nav #login-btn{
     background-color: var(--green);
     box-shadow: none;
 }
@@ -214,53 +214,34 @@ button:hover{
 /* wrapper */
 
 .wrapper{
-    max-width: 1920px;
-    margin: 30px;
-    display: grid;
-    grid-gap: 10px;
 }
 
 /* top-container */
 .top-container{
-    display: grid;
-    grid-template-areas:
-        'showcase showcase showcase showcase showcase info'
-        'showcase showcase showcase showcase showcase info'
-        'article article article article article article';
+
 }
 
 /* showcase */
-.showcase {
-    grid-area: showcase;
-
-}
-
-.showcase img{
-    min-width: 200px;
+.showcase img {
+    display:block;
+    margin: 3rem auto 1rem auto;
     box-shadow: var(--shadow);
 
 }
-
-/* info */
-.info {
-    font-size: 18px;
-    grid-area: info;
-    padding: 0 1rem;
-
+.showcase h2{
+    margin: 0 15%;
 }
 
 .article {
     font-size: 14px;
     grid-area: article;
-    margin: 0 0 10px 0;
+    margin: 0 15%;
 }
 .map-container{
     left:0;
     top:0;
     height:100%;
     width:100%;
-
-
 }
 
 #map {
@@ -358,18 +339,6 @@ footer hr {
 }
 
 @media (max-width: 700px){
-
-    .top-container{
-        grid-template-areas:
-        'showcase'
-        'info'
-        'article';
-    }
-
-    .article {
-        padding: 0 1rem;
-    }
-
     footer ul {
         grid-template-columns: 1fr;
         text-align: left;
@@ -378,10 +347,10 @@ footer hr {
 }
 
 @media (max-width: 630px){
-    .main-nav{
+    .nav{
         text-align: center;
     }
-    .main-nav ul {
+    .nav ul {
         grid-gap: 20px 0;
         grid-template-columns: 1fr;
     }

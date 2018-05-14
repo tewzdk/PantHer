@@ -20,8 +20,5 @@ public class Administrator extends Bruger {
 
     private void redigérBruger(){
 
-
     }
-
-
 }
