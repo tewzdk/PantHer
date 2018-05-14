@@ -124,7 +124,7 @@ button:hover{
 }
 
 .logo-placeholder {
-    font-family: Roboto, serif;
+    font-family: Roboto, Arial, serif;
     font-weight: 100;
     font-size: 20px;
     text-decoration: none;
@@ -202,6 +202,7 @@ button:hover{
 /* wrapper */
 
 .wrapper{
+    margin: 2rem 2rem;
 }
 
 /* top-container */

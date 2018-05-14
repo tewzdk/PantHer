@@ -22,10 +22,30 @@ var mapOptions = {
     styles: myStyles
 };
 
+var geoLocationOptions = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0
+};
+
 function initMap(){
+
     //new map
     map = new google.maps.Map(document.getElementById('map'), mapOptions);
     infowindow = new google.maps.InfoWindow();
+
+    function success(pos){
+        currentposition = {
+            lat: pos.coords.latitude,
+            lng: pos.coords.longitude
+        };
+        map.setCenter(currentposition);
+    }
+    function error(){
+        console.log('unable to find current geolocation');
+    }
+
+    navigator.geolocation.getCurrentPosition(success, error, geoLocationOptions);
 
     getInitMarkers();
 }
