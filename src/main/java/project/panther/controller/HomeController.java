@@ -26,7 +26,11 @@ public class HomeController {
 
     @PostMapping ("/opret-bruger")
     public String createAccount(@ModelAttribute Bruger bruger) {
-        repository.createBruger(bruger);
+        if(repository.readBruger(bruger.getMail()) == null){
+            repository.createBruger(bruger);
+        }
+        //else: gi en fejlmeddelelse
+
     return "redirect:/";
     }
 

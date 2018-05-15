@@ -1,6 +1,9 @@
 //functions for google map
 var map;
 var infowindow;
+var deviceMarker;
+var initPosition;
+var currentPosition;
 
 //map styles
 var myStyles =[
@@ -34,19 +37,11 @@ function initMap(){
     map = new google.maps.Map(document.getElementById('map'), mapOptions);
     infowindow = new google.maps.InfoWindow();
 
-    function success(pos){
-        currentposition = {
-            lat: pos.coords.latitude,
-            lng: pos.coords.longitude
-        };
-        map.setCenter(currentposition);
-        addDeviceMarker(currentposition)
-    }
-    function error(){
-        console.log('unable to find current geolocation');
+    if("geolocation" in navigator) {
+        addDeviceMarker(deviceMarker);
     }
 
-    navigator.geolocation.getCurrentPosition(success, error, geoLocationOptions);
+    navigator.geolocation.watchPosition(currentPositionSucces, positionError, geoLocationOptions);
 
     getInitMarkers();
 }
@@ -66,12 +61,10 @@ function addMarker(props){
     });
 
 }
-function addDeviceMarker(pos){
-    var marker = new google.maps.Marker({
-        position: pos,
-        map: map,
-        icon: 'pictures/userMarker.png'
-    });
+function addDeviceMarker(deviceMarker, initPosition){
+        deviceMarker.setPosition(initPosition);
+        deviceMarker.setMap(map);
+        deviceMarker.setIcon('pictures/userMarker.png');
 }
 
 function getInitMarkers(){
@@ -104,6 +97,18 @@ function getInitMarkers(){
         }
     });
 }
+
+//Geo Location functions
+function currentPositionSucces(pos){
+    currentPosition = {
+        lat: pos.coords.latitude,
+        lng: pos.coords.longitude
+    };
+}
+function positionError(){
+    console.log('unable to find current geolocation');
+}
+
 
 
 
