@@ -1,21 +1,13 @@
 //functions for google map
 var map;
 var infowindow;
-var deviceMarker;
-var initPosition;
-var currentPosition;
 
 //map styles
-var myStyles =[
-    {
+var myStyles = [{
         featureType: "poi",
         elementType: "labels",
-        stylers: [
-            { visibility: "off"}
-        ]
-    }
-
-];
+        stylers: [{ visibility: "off"}]
+    }];
 
 //map options
 var mapOptions = {
@@ -24,7 +16,6 @@ var mapOptions = {
     center: {lat: 55.676098, lng: 12.568337},
     styles: myStyles
 };
-
 var geoLocationOptions = {
     enableHighAccuracy: true,
     timeout: 5000,
@@ -37,11 +28,19 @@ function initMap(){
     map = new google.maps.Map(document.getElementById('map'), mapOptions);
     infowindow = new google.maps.InfoWindow();
 
-    if("geolocation" in navigator) {
-        addDeviceMarker(deviceMarker);
+    function success(pos){
+        currentposition = {
+            lat: pos.coords.latitude,
+            lng: pos.coords.longitude
+        };
+        map.setCenter(currentposition);
+        addDeviceMarker(currentposition)
+    }
+    function error(){
+        console.log('unable to find current geolocation');
     }
 
-    navigator.geolocation.watchPosition(currentPositionSucces, positionError, geoLocationOptions);
+    navigator.geolocation.getCurrentPosition(success, error, geoLocationOptions);
 
     getInitMarkers();
 }
@@ -61,10 +60,12 @@ function addMarker(props){
     });
 
 }
-function addDeviceMarker(deviceMarker, initPosition){
-        deviceMarker.setPosition(initPosition);
-        deviceMarker.setMap(map);
-        deviceMarker.setIcon('pictures/userMarker.png');
+function addDeviceMarker(pos){
+    var marker = new google.maps.Marker({
+        position: pos,
+        map: map,
+        icon: 'pictures/userMarker.png'
+    });
 }
 
 function getInitMarkers(){
@@ -83,32 +84,18 @@ function getInitMarkers(){
 
             addMarker({
                 coords:{lat: latitude, lng: longitude},
-                content:'<div class="infoWindow">' +
-                            '<h3>' + fornavn + ' ' + efternavn +'</h3>' +
-                            '<img class="profil-billede" src=' + profilbilledeSti + '/>' +
-                            '<p>&emsp;' + telefonnummer + '&ensp;<i class="fas fa-phone"></i></p>' +
-                            '<hr>' + '<br>' +
-                            '<div class="pant-container">' +
-                                '<img class="pant-billede" src=' + pantbilledeSti + '/>' +
-                                '<h4>Estimeret beløb: ' + estimeretBeloeb + ' kr.</h4>' +
-                            '</div>' +
-                        '</div>'
+                content:
+                    '<div class="infoWindow">' +
+                    '<h3>' + fornavn + ' ' + efternavn +'</h3>' +
+                    '<img class="profil-billede" src=' + profilbilledeSti + '/>' +
+                    '<p>&emsp;' + telefonnummer + '&ensp;<i class="fas fa-phone"></i></p>' +
+                    '<hr>' + '<br>' +
+                    '<div class="pant-container">' +
+                        '<img class="pant-billede" src=' + pantbilledeSti + '/>' +
+                        '<h4>Estimeret beløb: ' + estimeretBeloeb + ' kr.</h4>' +
+                    '</div>' +
+                '</div>'
             });
         }
     });
 }
-
-//Geo Location functions
-function currentPositionSucces(pos){
-    currentPosition = {
-        lat: pos.coords.latitude,
-        lng: pos.coords.longitude
-    };
-}
-function positionError(){
-    console.log('unable to find current geolocation');
-}
-
-
-
-
