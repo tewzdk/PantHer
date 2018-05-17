@@ -86,6 +86,7 @@ button:hover{
     padding: 12px 10px;
     background-color: var(--green);
     box-shadow: none;
+
 }
 
 .create-user-button {
@@ -250,7 +251,7 @@ button:hover{
 }
 
 #map {
-    padding-bottom:42.5%;
+    height: 550px;
     position:relative;
     box-shadow: var(--shadow);
     overflow:hidden;
@@ -365,6 +366,9 @@ footer hr {
         grid-template-columns: 1fr;
         text-align: left;
         margin-left: 20px;
+    }
+    #map {
+        height: 400px;
     }
 }
 
