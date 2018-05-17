@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,9 +21,9 @@
                     <span id="create-user-close-btn" class="close-btn">&times;</span>
                 </div>
                 <div class="modal-body">
-                    <form class="create-user-form" action="/opret-bruger" method="post">
+                    <form class="create-user-form" th:action="@{/opret-bruger}" method="post">
                         <label><b>E-mailadresse</b></label>
-                        <input type="email" placeholder="Indtast din e-mailadresse" name="mail" required>
+                        <input type="text" placeholder="Indtast din e-mailadresse" name="mail" required>
                         <label><b>Fornavn</b></label>
                         <input type="text" placeholder="Indtast dit fornavn" name="fornavn" required>
                         <label><b>Efternavn</b></label>
@@ -32,7 +32,7 @@
                         <input type="text" placeholder="Indtast dit telefonnummer" name="telefonnummer" required>
                         <label><b>Kodeord</b></label>
                         <input id="password" type="password" placeholder="Indtast dit kodeord" name="kodeord" required>
-                        <input id="passwordconfirm "type="password" placeholder="Gentag dit kodeord" oninput="check(this)" required>
+                        <input id="passwordconfirm "type="password" placeholder="Gentag dit kodeord" oninput="check(this)" name="kodeord2" required>
                         <button class="create-user-button" value="Submit">Opret Bruger</button>
                     </form>
                 </div>
@@ -45,12 +45,12 @@
                     <span id="login-close-btn" class="close-btn">&times;</span>
                 </div>
                 <div class="modal-body">
-                    <form class="login-form" action="/login" method="post">
+                    <form class="login-form" th:action="@{/login}" method="post">
                         <label><b>E-mailadresse</b></label>
-                        <input type="email" placeholder="Indtast din e-mailadresse" name="mail" required>
+                        <input type="email" placeholder="Indtast din e-mailadresse" name="username" required>
                         <br>
                         <label><b>Kodeord</b></label>
-                        <input type="password" placeholder="Indtast dit kodeord" name="kodeord" required>
+                        <input type="password" placeholder="Indtast dit kodeord" name="password" required>
                         <br>
                         <button class="login-btn">Login</button>
                         <br>
