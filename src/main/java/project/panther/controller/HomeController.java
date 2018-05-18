@@ -93,19 +93,14 @@ public class HomeController {
         return "lidt-om-os";
     }
 
-    @GetMapping ("/pantherprojektet")
+    @GetMapping ("/elepantprojektet")
     public String pantherProjektet(Model model) {
-        return "pantherprojektet";
+        return "elepantprojektet";
     }
 
     @GetMapping ("/samarbejdspartnere")
     public String partnere(Model model) {
         return "samarbejdspartnere";
-    }
-
-    @GetMapping ("/panther")
-    public String panther(Model model){
-        return "panther";
     }
 
 }

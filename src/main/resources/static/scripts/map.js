@@ -7,7 +7,7 @@ var myStyles = [{
         featureType: "poi",
         elementType: "labels",
         stylers: [{ visibility: "off"}]
-    }];
+}];
 
 //map options
 var mapOptions = {

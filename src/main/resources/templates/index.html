@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <link rel="stylesheet" href="stylesheets/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css"
           integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
@@ -11,81 +12,98 @@
 
 </head>
 <body>
-<nav class="nav">
-    <ul>
-        <li><a class="logo-placeholder" href="/">LOGO-PLACEHOLDER</a></li>
-        <li><button id="create-user-btn"><i class="fas fa-user-plus"></i><p class="btn-text">Opret Bruger</p></button></li>
-        <div id="create-user-modal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <span id="create-user-close-btn" class="close-btn">&times;</span>
-                </div>
-                <div class="modal-body">
-                    <form class="create-user-form" action="/opret-bruger" method="post">
-                        <label><b>E-mailadresse</b></label>
-                        <input type="email" placeholder="Indtast din e-mailadresse" name="mail" required>
-                        <label><b>Fornavn</b></label>
-                        <input type="text" placeholder="Indtast dit fornavn" name="fornavn" required>
-                        <label><b>Efternavn</b></label>
-                        <input type="text" placeholder="Indtast dit efternavn" name="efternavn" required>
-                        <label><b>Telefonnummer</b></label>
-                        <input type="text" placeholder="Indtast dit telefonnummer" name="telefonnummer" required>
-                        <label><b>Kodeord</b></label>
-                        <input id="password" type="password" placeholder="Indtast dit kodeord" name="kodeord" required>
-                        <input id="passwordconfirm "type="password" placeholder="Gentag dit kodeord" oninput="check(this)" required>
-                        <button class="create-user-button" value="Submit">Opret Bruger</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <li><button id="login-btn"><i class="fas fa-sign-in-alt"></i><p class="btn-text">Login</p></button></li>
-        <div id="login-modal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <span id="login-close-btn" class="close-btn">&times;</span>
-                </div>
-                <div class="modal-body">
-                    <form class="login-form" action="/login" method="post">
-                        <label><b>E-mailadresse</b></label>
-                        <input type="email" placeholder="Indtast din e-mailadresse" name="mail" required>
-                        <br>
-                        <label><b>Kodeord</b></label>
-                        <input type="password" placeholder="Indtast dit kodeord" name="kodeord" required>
-                        <br>
-                        <button class="login-btn">Login</button>
-                        <br>
-                        <label><input type="checkbox" name="remember"> Husk oplysninger</label>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                </div>
-            </div>
-        </div>
-    </ul>
-</nav>
 <div class="wrapper">
-    <div class="container">
+    <header>
+        <nav>
+            <div class="menu-icon">
+                <i class="fa fa-bars fa-2x"></i>
+            </div>
+            <a class="logo" href="/">ELEPANT</a>
+
+            <div class="menu">
+                <ul id="no-login-registered">
+                    <!--CREATE USER BUTTON-->
+                    <li><a id="create-user-btn"><i class="fas fa-user-plus"></i>&ensp;Opret bruger</a></li>
+                        <!-- CREATE USER MODAL-->
+                    <div id="create-user-modal" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span id="create-user-close-btn" class="close-btn">&times;</span>
+                            </div>
+                            <div class="modal-body">
+                                <form class="create-user-form" action="/opret-bruger" method="post">
+                                    <label><b>E-mailadresse</b></label>
+                                    <input type="email" placeholder="Indtast din e-mailadresse" name="mail" required>
+                                    <label><b>Fornavn</b></label>
+                                    <input type="text" placeholder="Indtast dit fornavn" name="fornavn" required>
+                                    <label><b>Efternavn</b></label>
+                                    <input type="text" placeholder="Indtast dit efternavn" name="efternavn" required>
+                                    <label><b>Telefonnummer</b></label>
+                                    <input type="text" placeholder="Indtast dit telefonnummer" name="telefonnummer" required>
+                                    <label><b>Kodeord</b></label>
+                                    <input id="password" type="password" placeholder="Indtast dit kodeord" name="kodeord" required>
+                                    <input id="passwordconfirm "type="password" placeholder="Gentag dit kodeord" oninput="check(this)" required>
+                                    <button class="create-user-button" value="Submit">Opret Bruger</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--LOGIN BUTTON-->
+                    <li><a id="login-btn"><i class="fas fa-sign-in-alt"></i>&ensp;Login</a></li>
+                        <!--LOGIN MODAL-->
+                    <div id="login-modal" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span id="login-close-btn" class="close-btn">&times;</span>
+                            </div>
+                            <div class="modal-body">
+                                <form class="login-form" action="/login" method="post">
+                                    <label><b>E-mailadresse</b></label>
+                                    <input type="email" placeholder="Indtast din e-mailadresse" name="mail" required>
+                                    <br>
+                                    <label><b>Kodeord</b></label>
+                                    <input type="password" placeholder="Indtast dit kodeord" name="kodeord" required>
+                                    <br>
+                                    <button class="login-btn">Login</button>
+                                    <br>
+                                    <label><input type="checkbox" name="remember"> Husk oplysninger</label>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="content">
         <div class="showcase">
-            <h2>Kom af med din pant eller hjælp andre med at hente deres...</h2>
         </div>
         <div class="article">
-            <p>Her skriver vi om alt det vi mangler at skrive om, meget meget vigtige ting, som vi endnu ikke har regnet ud endnu
-            Thomas vil eventuelt også fortælle lidt om hans yndlingsbeskæftigelse. Som er at sove. Han har en masse gode råd til
-            hvordan man kan begynde at dyrke den hobby lidt hyppigere. Ja ja aja men flowwriting kan være rigtig svært...
-            nu stopper jeg.
+            <h2>"Alt, hvad du skal tænke på, er: Det rent og skært nødvendige, det elementært nødvendige..."</h2>
+            <p>
+                Derfor har vi lanceret et nyt system, der skal gøre livet lettere for dig. ElePant, hedder det,
+                og det går i al sin enkelthed ud på, at du enten kommer hurtigt af med den pant, du har liggende derhjemme - eller hjælper andre med at komme af med deres.
+            </p>
+            <h2><br>Sådan virker det</h2>
+            <p>Når du har oprettet en bruger og logger ind, vil du blive præsenteret for et kort med markører.
+                Hver af disse markører stammer fra en anden bruger, der har "uploadet" sin pant. Nu har du to valgmuligheder.
+                Du kan enten tage på pant-jagt og hjælpe andre, eller du kan hjælpe dig selv og lave din egen markør.
             </p>
         </div>
+        <br>
     </div>
 </div>
 <footer>
     <hr>
     <ul>
-        <li><i class="fas fa-keyboard fa-2x"></i>&emsp;<a href="pantherprojektet">Mere om projektet</a></li>
+        <li><i class="fas fa-keyboard fa-2x"></i>&emsp;<a href="elepantprojektet">Mere om projektet</a></li>
         <li><i class="far fa-handshake fa-2x"></i>&emsp;<a href="samarbejdspartnere">Samarbejdspartnere</a></li>
         <li><i class="fas fa-users fa-2x"></i>&emsp;<a href="lidt-om-os">Lidt om os</a></li>
     </ul>
     <hr>
-    <p>PantHer© 2018</p>
+    <p>ElePant© 2018</p>
 </footer>
 <script src="scripts/main.js"></script>
 </body>
