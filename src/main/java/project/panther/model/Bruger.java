@@ -4,41 +4,46 @@ import java.util.ArrayList;
 
 public class Bruger {
 
+
     private int brugerID;
-    private String kodeord;
+    private String mail;
     private String fornavn;
     private String efternavn;
-    private String mail;
     private String telefonnummer;
-    private String profilbilledeSti = "pictures/avatar.jpg";    //her kan vi ændre default-profilbillede (men kun for nye brugere).
+    private String kodeord;
+    private String profilbilledeSti;
+    private boolean enabled;
+    private String role;
+    //her kan vi ændre default-profilbillede (men kun for nye brugere).
     private ArrayList<Adresse> brugeradresser;
+
+
+
 
     public Bruger(){}
 
-    public Bruger(int brugerID, String kodeord, String fornavn, String efternavn, String mail, String telefonnummer, String profilbilledeSti) {
-        this.brugerID = brugerID;
+    public Bruger(String mail, String fornavn, String efternavn, String telefonnummer, String kodeord) {
         this.mail = mail;
         this.fornavn = fornavn;
         this.efternavn = efternavn;
+        this.telefonnummer = telefonnummer;
         this.kodeord = kodeord;
+        this.profilbilledeSti = "pictures/avatar.jpg";
+        this.enabled = true;
+        this.role = "ROLE_admin";
+    }
+
+    public Bruger(int brugerID, String kodeord, String fornavn, String efternavn, String mail, String telefonnummer, String profilbilledeSti, boolean enabled, String role) {
+        this.brugerID = brugerID;
+        this.kodeord = kodeord;
+        this.fornavn = fornavn;
+        this.efternavn = efternavn;
+        this.mail = mail;
         this.telefonnummer = telefonnummer;
         this.profilbilledeSti = profilbilledeSti;
+        this.enabled = enabled;
+        this.role = role;
     }
-
-    @Override
-    public String toString() {
-        return "Bruger{" +
-                "brugerID=" + brugerID +
-                ", kodeord='" + kodeord + '\'' +
-                ", fornavn='" + fornavn + '\'' +
-                ", efternavn='" + efternavn + '\'' +
-                ", mail='" + mail + '\'' +
-                ", telefonnummer='" + telefonnummer + '\'' +
-                ", profilbilledeSti='" + profilbilledeSti + '\'' +
-                ", brugeradresser=" + brugeradresser +
-                '}';
-    }
-
 
 
     public int getBrugerID() {
@@ -103,5 +108,21 @@ public class Bruger {
 
     public void setBrugeradresser(ArrayList<Adresse> brugeradresser) {
         this.brugeradresser = brugeradresser;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
