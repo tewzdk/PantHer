@@ -47,7 +47,7 @@ public class HomeController {
     }
 
 
-   @PostMapping ("/login") //simpelt login-system
+   @PostMapping ("/") //simpelt login-system
     public String login() {
             return "redirect:/mainpage";
 
