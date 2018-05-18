@@ -1,6 +1,8 @@
 package project.panther.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -9,12 +11,16 @@ import project.panther.model.GoogleMapMarker;
 import project.panther.model.GoogleMapMarkerList;
 import project.panther.model.FormattedMarkerData;
 import project.panther.repository.MainDbRepository;
+import project.panther.security.SecurityConfig;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class HomeController {
+
+    @Autowired
+    PasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Autowired
     private MainDbRepository repository;
@@ -25,38 +31,30 @@ public class HomeController {
     }
 
     @PostMapping ("/opret-bruger")
-    public String createAccount(@ModelAttribute Bruger bruger) {
-        if(repository.readBruger(bruger.getMail()) == null){
-            repository.createBruger(bruger);
-        }
-        //else: gi en fejlmeddelelse
+    public String createAccount(@RequestParam String mail,
+                                @RequestParam String fornavn,
+                                @RequestParam String efternavn,
+                                @RequestParam String telefonnummer,
+                                @RequestParam String kodeord,
+                                @RequestParam String kodeord2
+                                ) {
+        System.out.println("/opret-bruger er blevet startet");
+        Bruger bruger = new Bruger(mail, fornavn,efternavn,telefonnummer,kodeord);
+        bruger.setKodeord(encoder.encode(bruger.getKodeord()));
+        repository.createBruger(bruger);
 
     return "redirect:/";
     }
 
-    //----------------------------------------------------------------------------------
-    //TODO lav et ordentlig loginsystem.
 
-    //skal slettes:
-    boolean loggedIn = false;
-
-    @PostMapping ("/login") //simpelt login-system
-    public String login(@ModelAttribute Bruger bruger) {
-        Bruger compareBruger = repository.readBruger(bruger.getMail());
-        if(bruger.getKodeord().equals(compareBruger.getKodeord())) {
-            loggedIn = true;
+   @PostMapping ("/") //simpelt login-system
+    public String login() {
             return "redirect:/mainpage";
-        }
-        return "redirect:/";
-    }
 
-    @GetMapping ("/mainpage")
+    }
+        @GetMapping ("/mainpage")
     public String mainpage() {
-        if(loggedIn) {
-            loggedIn = false;
-            return "/mainpage";
-        }
-        return "redirect:/";
+        return "mainpage";
     }
     //----------------------------------------------------------------------------------
 

@@ -1,10 +1,13 @@
 package project.panther.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import project.panther.model.*;
+import project.panther.security.SecurityConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +15,11 @@ import java.util.List;
 @Repository
 public class MainDbRepository implements DbInterface {
 
+
     @Autowired
     JdbcTemplate jdbc;
     SqlRowSet sqlRowSet;
+
 
     @Override
     public List<Bruger> readAllBruger() {
@@ -30,7 +35,9 @@ public class MainDbRepository implements DbInterface {
                     sqlRowSet.getString("efternavn"),
                     sqlRowSet.getString("mail"),
                     sqlRowSet.getString("telefonnummer"),
-                    sqlRowSet.getString("profilbilledeSti")));
+                    sqlRowSet.getString("profilbilledeSti"),
+                    sqlRowSet.getBoolean("enabled"),
+                    sqlRowSet.getString("role")));
         }
         return  brugere;
     }
@@ -73,15 +80,19 @@ public class MainDbRepository implements DbInterface {
 
     @Override
     public void createBruger(Bruger bruger) {
-        jdbc.update("INSERT INTO panther.brugere " +
-                "(mail, fornavn, efternavn, telefonnummer, kodeord, profilbillede_sti) " +
-                "VALUES ('" +
-                bruger.getMail() +"', '"+
-                bruger.getFornavn() + "', '"+
-                bruger.getEfternavn() + "', '"+
-                bruger.getTelefonnummer() + "', '" +
-                bruger.getKodeord() + "', '"+
-                bruger.getProfilbilledeSti() +"')");
+        jdbc.update("INSERT INTO brugere " +
+                        "(mail, fornavn, efternavn, telefonnummer," +
+                        " kodeord, profilbillede_sti, enabled, role) " +
+                        "VALUES (?,?,?,?,?,?,?,?)",
+                bruger.getMail(),
+                bruger.getFornavn(),
+                bruger.getEfternavn(),
+                bruger.getTelefonnummer(),
+                bruger.getKodeord(),
+                bruger.getProfilbilledeSti(),
+                bruger.isEnabled(),
+                bruger.getRole()
+                );
 
     }
 
@@ -108,7 +119,9 @@ public class MainDbRepository implements DbInterface {
                     sqlRowSet.getString("efternavn"),
                     sqlRowSet.getString("mail"),
                     sqlRowSet.getString("telefonnummer"),
-                    sqlRowSet.getString("profilbillede_sti"));
+                    sqlRowSet.getString("profilbillede_sti"),
+                    sqlRowSet.getBoolean("enabled"),
+                    sqlRowSet.getString("role"));
         }
         return null;
     }
@@ -123,7 +136,9 @@ public class MainDbRepository implements DbInterface {
                     sqlRowSet.getString("efternavn"),
                     sqlRowSet.getString("mail"),
                     sqlRowSet.getString("telefonnummer"),
-                    sqlRowSet.getString("profilbillede_sti"));
+                    sqlRowSet.getString("profilbillede_sti"),
+                    sqlRowSet.getBoolean("enabled"),
+                    sqlRowSet.getString("role"));
         }
         return null;
     }
