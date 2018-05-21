@@ -51,6 +51,8 @@ public class HomeController {
         String mail = authentication.getName();
         Bruger b = repository.readBruger(mail);
 
+        model.addAttribute(b);
+
         boolean userHasMarker = false;
 
         //check if user has any markers already
@@ -85,6 +87,17 @@ public class HomeController {
         repository.createGoogleMapMarker(g);
 
         return "redirect:/mainpage";
+    }
+
+    @GetMapping("/bruger")
+    public String BrugerSide(Model model) {
+
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String mail = authentication.getName();
+            Bruger b = repository.readBruger(mail);
+            model.addAttribute(b);
+            return "bruger";
+
     }
 
 
