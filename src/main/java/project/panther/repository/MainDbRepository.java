@@ -50,7 +50,6 @@ public class MainDbRepository implements DbInterface {
 
         while (sqlRowSet.next()) {
             adresses.add(new Adresse(
-                    sqlRowSet.getInt("adresse_id"),
                     sqlRowSet.getString("gade"),
                     sqlRowSet.getString("husnummer"),
                     sqlRowSet.getString("etage"),
@@ -64,17 +63,17 @@ public class MainDbRepository implements DbInterface {
 
     @Override // SKAL KUNNE LINKE BRUGER OG ADRESSE
     public void createAdresse(Adresse adresse, int brugerId) {
-        jdbc.update("INSERT INTO PantHer.adresser " +
-                "(adresse_id, gade, husnummer, etage, postnummer, bynavn) " +
-                "VALUES ('" +
-                adresse.getGade() +"', '"+
-                adresse.getHusnummer() + "', '"+
-                adresse.getEtage() +"', '" +
-                adresse.getPostnummer() +"', '"+
-                adresse.getBynavn() + "')"
+        jdbc.update("INSERT INTO adresser " +
+                "(gade, husnummer, etage, postnummer, bynavn) " +
+                "VALUES (?,?,?,?,?)",
+                adresse.getGade(),
+                adresse.getHusnummer(),
+                adresse.getEtage(),
+                adresse.getPostnummer(),
+                adresse.getBynavn()
         );
 
-        createBrugerAdresse(brugerId,adresse.getAdresseID());
+        //createBrugerAdresse(brugerId,adresse.getAdresseID());
 
     }
 
@@ -93,17 +92,15 @@ public class MainDbRepository implements DbInterface {
                 bruger.isEnabled(),
                 bruger.getRole()
                 );
-
     }
 
     @Override
     public void createBrugerAdresse(int brugerId, int adresseId) {
         jdbc.update("INSERT INTO PantHer.brugeradresser " +
                 "(bruger_id, adresse_id) " +
-                "VALUES ('" +
-                brugerId + "', '" +
-                adresseId   + "')"
-
+                "VALUES (?,?)",
+                brugerId,
+                adresseId
         );
     }
 
@@ -155,7 +152,6 @@ public class MainDbRepository implements DbInterface {
 
         while (sqlRowSet.next()) {
             return new Adresse(
-                    sqlRowSet.getInt("adresse_id"),
                     sqlRowSet.getString("gade"),
                     sqlRowSet.getString("husnummer"),
                     sqlRowSet.getString("etage"),
@@ -167,15 +163,15 @@ public class MainDbRepository implements DbInterface {
 
     @Override
     public void updateBruger(Bruger bruger) {
-        jdbc.update("UPDATE panther.adresser SET " +
-                "kodeord = '" + bruger.getKodeord()+ "', " +
+        jdbc.update("UPDATE panther.brugere SET " +
+                "mail = '"+ bruger.getMail() + "', " +
                 "fornavn = '"+ bruger.getFornavn() + "', " +
                 "efternavn = '"+ bruger.getEfternavn() + "', " +
-                "mail = '"+ bruger.getMail() + "', " +
                 "telefonnummer = '"+ bruger.getTelefonnummer() + "', " +
+                "kodeord = '" + bruger.getKodeord()+ "', " +
                 "profilbillede_sti = '"+ bruger.getProfilbilledeSti() +
 
-                "'WHERE adresse_id ='"+ bruger.getBrugerID() + "'");
+                "'WHERE bruger_id ='"+ bruger.getBrugerID() + "'");
 
     }
 

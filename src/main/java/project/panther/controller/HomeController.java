@@ -102,6 +102,70 @@ public class HomeController {
             return "bruger";
 
     }
+    @PostMapping("/edit-bruger")
+    public String editBruger (@RequestParam String maill,
+                              @RequestParam String fornavn,
+                              @RequestParam String efternavn,
+                              @RequestParam String telefonnummer,
+                              @RequestParam String kodeord){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String mail = authentication.getName();
+        Bruger b = repository.readBruger(mail);
+        b.setMail(maill);
+        b.setFornavn(fornavn);
+        b.setEfternavn(efternavn);
+        b.setTelefonnummer(telefonnummer);
+        b.setKodeord(kodeord);
+        b.setKodeord(encoder.encode(b.getKodeord()));
+        repository.updateBruger(b);
+        return "redirect:/bruger";
+    }
+
+    @PostMapping("/slet-bruger")
+    public String sletBruger() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String mail = authentication.getName();
+        Bruger b = repository.readBruger(mail);
+
+        repository.deleteGoogleMapMarker(b.getBrugerID());
+        repository.deleteBruger(b.getBrugerID());
+        return "redirect:/";
+    }
+
+    @PostMapping("/skab-adresse")
+    public String skabAdresse(@RequestParam String gade,
+                              @RequestParam String husnummer,
+                              @RequestParam String etage,
+                              @RequestParam int postnummer,
+                              @RequestParam String bynavn) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String mail = authentication.getName();
+        Bruger b = repository.readBruger(mail);
+        Adresse adresse = new Adresse(gade,husnummer,etage,postnummer,bynavn);
+
+
+        repository.createAdresse(adresse,b.getBrugerID());
+        return "redirect:/bruger";
+    }
+
+    @GetMapping("/logout")
+    public String logout (HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null){
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "redirect:/";
+    }
+
+    @GetMapping("/logout")
+    public String logout (HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null){
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "redirect:/";
+    }
 
     @GetMapping("/logout")
     public String logout (HttpServletRequest request, HttpServletResponse response) {

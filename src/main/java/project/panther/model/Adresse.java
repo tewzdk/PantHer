@@ -9,17 +9,19 @@ public class Adresse {
     private int postnummer;
     private String bynavn;
 
-    public int getAdresseID() {
-        return adresseID;
+    public Adresse() {
     }
 
-    public Adresse(int adresseID, String gade, String husnummer, String etage, int postnummer, String bynavn) {
-        this.adresseID = adresseID;
+    public Adresse(String gade, String husnummer, String etage, int postnummer, String bynavn) {
         this.gade = gade;
         this.husnummer = husnummer;
         this.etage = etage;
         this.postnummer = postnummer;
         this.bynavn = bynavn;
+    }
+
+    public int getAdresseID() {
+        return adresseID;
     }
 
     public void setAdresseID(int adresseID) {

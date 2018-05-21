@@ -83,8 +83,40 @@
         </nav>
     </header>
     <div class="content">
-        <!-- SKRIV CONTENT HER -->
+
+        //EDIT
+        <form th:action="@{/edit-bruger}" method="post">
+            <label><b>E-mailadresse</b></label>
+            <input type="email" placeholder="Indtast din e-mailadresse" name="maill" th:value="${bruger.mail}" required>
+            <label><b>Fornavn</b></label>
+            <input type="text" placeholder="Indtast dit fornavn" name="fornavn" th:value="${bruger.fornavn}" required>
+            <label><b>Efternavn</b></label>
+            <input type="text" placeholder="Indtast dit efternavn" name="efternavn" th:value="${bruger.efternavn}" required>
+            <label><b>Telefonnummer</b></label>
+            <input type="text" placeholder="Indtast dit telefonnummer" name="telefonnummer" th:value="${bruger.telefonnummer}" required>
+            <label><b>Kodeord</b></label>
+            <input type="password" placeholder="Indtast dit kodeord" name="kodeord" required>
+
+            <button class="create-user-button" value="Submit">Ændre Bruger</button>
+        </form>
         <br>
+        <form th:action="@{/slet-bruger}" method="post">
+            <button class="create-user-button" value="Submit">Slet Bruger</button>
+        </form>
+        <br>
+        <form th:action="@{/skab-adresse}" method="post">
+            <label><b>Gade</b></label>
+            <input type="text" placeholder="Indtast din gade" name="gade" required>
+            <label><b>Husnummer</b></label>
+            <input type="text" placeholder="Indtast dit husnummer" name="husnummer" required>
+            <label><b>Etage</b></label>
+            <input type="text" placeholder="Indtast din etage" name="etage" required>
+            <label><b>Postnummer</b></label>
+            <input type="text" placeholder="Indtast dit postnummer" name="postnummer" required>
+            <label><b>By</b></label>
+            <input type="text" placeholder="Indtast din by" name="bynavn" required>
+            <button class="create-user-button" value="Submit">Opret</button>
+        </form>
     </div>
 </div>
 <footer>
