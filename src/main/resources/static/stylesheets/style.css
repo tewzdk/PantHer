@@ -156,12 +156,13 @@ nav ul li {
     padding: 19px;
     cursor: pointer;
 }
-nav ul li:hover{
-    color: darkgrey;
-}
+
 nav ul a{
     color: var(--dark);
     text-decoration: none;
+}
+nav ul li:hover, nav ul a:hover{
+    color: darkgrey;
 }
 
 .menu-icon {
@@ -325,14 +326,13 @@ nav ul a{
     position:relative;
     box-shadow: var(--shadow);
     overflow:hidden;
-    padding-bottom: 45%;
+    padding-bottom: 43%;
 }
 
 #map-controls {
     text-align: center;
     padding: 0;
     margin: 0;
-
 }
 
 #map-controls button{
@@ -480,7 +480,7 @@ footer hr {
         max-height: 0;
         background: var(--nav-bar-light);
     }
-    nav ul li:hover{
+    nav ul li:hover, nav ul a:hover{
         color: var(--primary);
     }
     nav.solid ul{

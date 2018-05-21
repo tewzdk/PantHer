@@ -21,7 +21,7 @@
             <a class="logo" href="/">ELEPANT</a>
 
             <div class="menu">
-                <ul sec:authorize="isAnonymous()" id="no-login-registered">
+                <ul id="no-login-registered">
                     <!--CREATE USER BUTTON-->
                     <li><a id="create-user-btn"><i class="fas fa-user-plus"></i>&ensp;Opret bruger</a></li>
                     <!-- CREATE USER MODAL-->
@@ -90,8 +90,7 @@
         <div id="map-controls">
             <ul>
                 <li><button th:unless="${userHasMarker}" id="create-marker-btn">Opret Pant</button></li>
-                <li th:if="${userHasMarker}"><button id="edit-marker-btn">Rediger</button><button id="delete-marker-btn">Slet</button>
-                </li>
+                <li th:if="${userHasMarker}"><button id="edit-marker-btn">Rediger</button><button id="delete-marker-btn">Slet</button></li>
             </ul>
             <div id="create-marker-modal" class="modal">
                 <div class="modal-content">

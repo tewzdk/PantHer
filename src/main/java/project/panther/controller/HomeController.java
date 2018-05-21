@@ -28,8 +28,7 @@ public class HomeController {
     private MainDbRepository repository;
 
     @GetMapping("/")
-    public String index(){
-
+    public String index(Model model){
         return "index";
     }
 
@@ -147,24 +146,6 @@ public class HomeController {
 
         repository.createAdresse(adresse,b.getBrugerID());
         return "redirect:/bruger";
-    }
-
-    @GetMapping("/logout")
-    public String logout (HttpServletRequest request, HttpServletResponse response) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){
-            new SecurityContextLogoutHandler().logout(request, response, auth);
-        }
-        return "redirect:/";
-    }
-
-    @GetMapping("/logout")
-    public String logout (HttpServletRequest request, HttpServletResponse response) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){
-            new SecurityContextLogoutHandler().logout(request, response, auth);
-        }
-        return "redirect:/";
     }
 
     @GetMapping("/logout")

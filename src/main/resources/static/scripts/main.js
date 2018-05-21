@@ -16,6 +16,12 @@ $(window).on("scroll", function(){
     }
 });
 
+//navbar
+if($('#login-registered').length){  // return's true if element is present
+    // show or hide another div
+    $('#no-login-registered').hide();
+}
+
 //modals
 //declared variables
 var createUserModal = document.getElementById('create-user-modal');
