@@ -23,6 +23,17 @@ public class GoogleMapMarker {
         this.pant = pant;
     }
 
+    public GoogleMapMarker(int brugerID, double latitude, double longitude, LocalDateTime oprettelsesTidspunkt, LocalDateTime afslutningsTidspunkt, Pant pant){
+        this.brugerID = brugerID;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.oprettelsesTidspunkt = oprettelsesTidspunkt;
+        this.afslutningsTidspunkt = afslutningsTidspunkt;
+        this.pant = pant;
+    }
+
+    public GoogleMapMarker(){}
+
     public int getMarkerID() {
         return markerID;
     }

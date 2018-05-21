@@ -28,7 +28,7 @@ public class Bruger {
         this.efternavn = efternavn;
         this.telefonnummer = telefonnummer;
         this.kodeord = kodeord;
-        this.profilbilledeSti = "pictures/avatar.jpg";
+        this.profilbilledeSti = "pictures/avatar.png";
         this.enabled = true;
         this.role = "ROLE_admin";
     }

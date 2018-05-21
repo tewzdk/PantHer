@@ -17,6 +17,7 @@ public interface DbInterface {
     void createAdresse (Adresse adresse, int brugerId);
     void createBruger (Bruger bruger);
     void createBrugerAdresse (int brugerId, int adresseId);
+    void createGoogleMapMarker(GoogleMapMarker marker);
     //READ
     Bruger readBruger(int id);
     Adresse readadresse(int id);
