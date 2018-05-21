@@ -248,6 +248,21 @@ public class MainDbRepository implements DbInterface {
         }
         return null;
     }
+    @Override
+    public void createGoogleMapMarker(GoogleMapMarker googleMapMarker){
+        GoogleMapMarker g = googleMapMarker;
+        jdbc.update("INSERT INTO PantHer.markører " +
+                "(bruger_id, latitude, longitude, oprettelsestidspunkt, afslutningstidspunkt, estimeret_beløb, pantbillede_sti) " +
+                "VALUES ('" +
+                g.getBrugerID() + "', '" +
+                g.getLatitude() + "', '" +
+                g.getLongitude() + "', '" +
+                g.getOprettelsesTidspunkt() + "', '" +
+                g.getAfslutningsTidspunkt() + "', '" +
+                g.getPant().getEstimeretBeloeb() + "', '" +
+                g.getPant().getPantBilledSti()   + "')"
+        );
+    }
 
     @Override
     public void updateGoogleMapMarker(GoogleMapMarker marker) {

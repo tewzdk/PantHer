@@ -1,18 +1,17 @@
 package project.panther.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import project.panther.model.Bruger;
-import project.panther.model.GoogleMapMarker;
-import project.panther.model.GoogleMapMarkerList;
-import project.panther.model.FormattedMarkerData;
+import project.panther.model.*;
 import project.panther.repository.MainDbRepository;
-import project.panther.security.SecurityConfig;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +26,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String index(){
+
         return "index";
     }
 
@@ -35,30 +35,69 @@ public class HomeController {
                                 @RequestParam String fornavn,
                                 @RequestParam String efternavn,
                                 @RequestParam String telefonnummer,
-                                @RequestParam String kodeord,
-                                @RequestParam String kodeord2
+                                @RequestParam String kodeord
                                 ) {
         System.out.println("/opret-bruger er blevet startet");
         Bruger bruger = new Bruger(mail, fornavn,efternavn,telefonnummer,kodeord);
         bruger.setKodeord(encoder.encode(bruger.getKodeord()));
         repository.createBruger(bruger);
 
-    return "redirect:/";
+        return "redirect:/";
     }
 
+    @GetMapping ("/mainpage")
+    public String mainpage(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String mail = authentication.getName();
+        Bruger b = repository.readBruger(mail);
 
-   @PostMapping ("/") //simpelt login-system
-    public String login() {
-            return "redirect:/mainpage";
+        boolean userHasMarker = false;
 
-    }
-        @GetMapping ("/mainpage")
-    public String mainpage() {
+        //check if user has any markers already
+        for (int i = 0; i < repository.readAllGoogleMapMarkers().size(); i++) {
+            if(repository.readAllGoogleMapMarkers().get(i).getBrugerID() == b.getBrugerID()){
+                userHasMarker = true;
+            }
+
+        }
+        model.addAttribute("userHasMarker", userHasMarker);
+
         return "mainpage";
     }
-    //----------------------------------------------------------------------------------
 
-    @RequestMapping(value = "/fetch-markers", method= RequestMethod.GET, produces="application/json")
+
+    @PostMapping("/create-marker")
+    public String createMarker(@RequestParam int estimeretBeloeb, double latHidden, double lngHidden){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String mail = authentication.getName();
+        Bruger b = repository.readBruger(mail);
+        System.out.println(mail);
+
+        double latitude = latHidden;
+        double longitude = lngHidden;
+
+        LocalDateTime ldtNow = LocalDateTime.now();
+        LocalDateTime ldtExpire = ldtNow.plusDays(7);
+
+        Pant p = new Pant(estimeretBeloeb);
+
+        GoogleMapMarker g = new GoogleMapMarker(b.getBrugerID(), latitude, longitude, ldtNow, ldtExpire, p);
+        repository.createGoogleMapMarker(g);
+
+        return "redirect:/mainpage";
+    }
+
+
+    //----------------------------------------------------------------------------------
+    //TODO lav en lækrere opret-markør-funktion. A la den nedenfor:
+    @RequestMapping(value = "/fetch-user", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public Bruger formattedUserData(){
+        Bruger bruger = repository.readBruger(null);
+        return bruger;
+    }
+
+    @RequestMapping(value = "/fetch-markers", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public List formattedMarkerData(){
         //opretter en markørliste
@@ -82,7 +121,6 @@ public class HomeController {
                     b.getProfilbilledeSti()
             ));
         }
-
         return formattedData;                          //viewmodel
     }
 
@@ -100,5 +138,4 @@ public class HomeController {
     public String partnere(Model model) {
         return "samarbejdspartnere";
     }
-
 }

@@ -10,6 +10,10 @@ public class Pant {
         this.pantBilledSti = pantBilledSti;
     }
 
+    public Pant(int estimeretBeloeb){
+        this.estimeretBeloeb = estimeretBeloeb;
+    }
+
     public int getEstimeretBeloeb() {
         return estimeretBeloeb;
     }

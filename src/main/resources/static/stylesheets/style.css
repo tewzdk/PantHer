@@ -7,7 +7,9 @@
     --shadow: 0 1px 5px rgba(64, 64, 64, 0.8);
     --blue: #1e5674;
     --green: #3c8841;
-    --nav-bar-color: #131313;
+
+    --nav-bar-primary: #3c3c3c;
+    --nav-bar-light: linear-gradient(#4693b8, #1d76a7);
 
     /* misc */
     --modal-animation-duration: 0.8s;
@@ -64,6 +66,10 @@ h1, h2, h3, h4 {
     font-weight: normal;
 }
 
+ul{
+    list-style: none;
+}
+
 label{
     font-size: 12px;
 }
@@ -88,7 +94,7 @@ button{
     cursor: pointer;
     padding-bottom: 2px;
     width: 16rem;
-    height: 3.2rem;
+    height: 2.5rem;
 }
 
 button:hover{
@@ -107,11 +113,6 @@ header {
     line-height: 15px;
 }
 
-.content {
-    font-family: quicksand;
-    width: 90%;
-    margin: 5em auto;
-}
 /* navigation bar */
 .logo {
     font-family: funkymuskrat;
@@ -133,10 +134,9 @@ nav{
 }
 
 nav ul{
-
+    font-family: roboto;
     margin: 0;
     font-size: 16px;
-    list-style: none;
     background: rgba(0 0 0 0);
     overflow:hidden;
     padding: 0;
@@ -162,13 +162,20 @@ nav ul li:hover{
 .menu-icon {
     font-size: 12px;
     width: 100%;
-    background: var(--nav-bar-color);
+    background: var(--nav-bar-primary);
     text-align: right;
     box-sizing: border-box;
     padding: 15px 24px;
     cursor: pointer;
     color: var(--primary);
     display: none;
+}
+
+.create-user-button {
+    width: 100%;
+    padding: 12px 10px;
+    background-color: var(--blue);
+    box-shadow: none;
 }
 
 .login-btn{
@@ -178,12 +185,10 @@ nav ul li:hover{
     box-shadow: none;
 
 }
-
-.create-user-button {
+.create-marker-btn{
     width: 100%;
     padding: 12px 10px;
     background-color: var(--blue);
-    box-shadow: none;
 }
 
 .close-btn {
@@ -201,7 +206,7 @@ nav ul li:hover{
     color: var(--dark);
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 3;
     left: 0;
     top: 0;
     height: 100%;
@@ -230,14 +235,17 @@ nav ul li:hover{
 
 /* specific headers for different modals */
 
-#login-modal .modal-header {
-    background-color: var(--green);
-}
-
 #create-user-modal .modal-header {
     background-color: var(--blue);
 }
 
+#login-modal .modal-header {
+    background-color: var(--green);
+}
+
+#create-marker-modal .modal-header{
+    background-color: var(--blue);
+}
 
 .modal-body {
     text-align: justify;
@@ -261,12 +269,13 @@ nav ul li:hover{
 }
 
 .content{
-
+    font-family: quicksand;
+    width: 90%;
+    margin: 5em auto;
 }
 
 /* showcase */
 .showcase {
-
     background-image: url(../pictures/map.jpg);
     background-size: cover;
     background-position: center;
@@ -308,10 +317,19 @@ nav ul li:hover{
 }
 
 #map {
-    height: 550px;
     position:relative;
     box-shadow: var(--shadow);
     overflow:hidden;
+    padding-bottom: 45%;
+}
+
+#map-controls {
+
+}
+#map-controls button{
+    margin-top: 1rem;
+    width: 100%;
+    background: var(--blue);
 }
 
 /* infowindow */
@@ -332,14 +350,14 @@ nav ul li:hover{
     margin-bottom: 7px;
 }
 
-.infoWindow .profil-billede{
+.infoWindow .profil-billede {
     display: block;
     margin-left: auto;
     margin-right: auto;
     max-width: 100px;
     max-height: 100px;
-
 }
+
 .infoWindow .pant-container{
     position: relative;
 }
@@ -364,7 +382,6 @@ nav ul li:hover{
     background-color: black;
     color: var(--light);
 }
-
 /* footer */
 footer {
     background: linear-gradient(#208730, #1bb83f);
@@ -390,7 +407,7 @@ footer a {
     color: #151515;
 }
 footer a:hover{
-    color: #222222;
+    color: var(--primary);
 }
 
 footer ul {
@@ -419,7 +436,7 @@ footer hr {
     }
 }
 
-@media (max-width: 580px){
+@media (max-width: 567px){
     body {
         margin: 0 0 7.2rem 0;
     }
@@ -431,9 +448,6 @@ footer hr {
         text-align: left;
         margin-left: 50px;
     }
-    #map {
-        height: 400px;
-    }
 
     .logo {
         color: var(--primary);
@@ -443,16 +457,20 @@ footer hr {
     }
     nav ul{
         max-height: 0;
-        background: var(--nav-bar-color);
+        background: var(--nav-bar-light);
+    }
+    nav ul li:hover{
+        color: var(--primary);
     }
     nav.solid ul{
-        background: var(--nav-bar-color);
+        box-shadow: none;
+        background: var(--nav-bar-light);
     }
     .showing {
         max-height: 10em;
+
     }
     nav ul li{
-        color: var(--primary);
         box-sizing: border-box;
         width: 100%;
         padding: 13px 0;
@@ -461,6 +479,9 @@ footer hr {
 
     .menu-icon{
         display: block;
+    }
+    #map {
+        min-height: 300px;
     }
 }
 @media (max-width: 450px){

@@ -1,5 +1,7 @@
-//functions for google map
+//init map variable
 var map;
+
+//init infoWindow variable - in order to only have one window at a time.
 var infowindow;
 
 //map styles
@@ -29,12 +31,17 @@ function initMap(){
     infowindow = new google.maps.InfoWindow();
 
     function success(pos){
-        currentposition = {
+        var currentPosition = {
             lat: pos.coords.latitude,
             lng: pos.coords.longitude
         };
-        map.setCenter(currentposition);
-        addDeviceMarker(currentposition)
+        map.setCenter(currentPosition);
+        addDeviceMarker(currentPosition)
+
+        //set hidden inputs for create-marker-form
+        document.getElementById('lat-hidden').value = pos.coords.latitude;
+        document.getElementById('lng-hidden').value = pos.coords.longitude;
+
     }
     function error(){
         console.log('unable to find current geolocation');
