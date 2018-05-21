@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +8,7 @@
     <link rel="stylesheet" href="stylesheets/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css"
           integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
-    <title>PantHer</title>
-
+    <title>ElePant</title>
 </head>
 <body>
 <div class="wrapper">
@@ -21,7 +20,7 @@
             <a class="logo" href="/">ELEPANT</a>
 
             <div class="menu">
-                <ul id="no-login-registered">
+                <ul sec:authorize="isAnonymous()" id="no-login-registered">
                     <!--CREATE USER BUTTON-->
                     <li><a id="create-user-btn"><i class="fas fa-user-plus"></i>&ensp;Opret bruger</a></li>
                     <!-- CREATE USER MODAL-->
@@ -50,7 +49,7 @@
                         </div>
                     </div>
                     <!--LOGIN BUTTON-->
-                    <li><a id="login-btn"><i class="fas fa-sign-in-alt"></i>&ensp;Login</a></li>
+                    <li><a id="login-btn"><i class="fas fa-sign-in-alt"></i>&ensp;Log ind</a></li>
                     <!--LOGIN MODAL-->
                     <div id="login-modal" class="modal">
                         <div class="modal-content">
@@ -74,6 +73,10 @@
                             </div>
                         </div>
                     </div>
+                </ul>
+                <ul sec:authorize="isAuthenticated()" id="login-registered">
+                    <li><a href="/bruger" th:inline="text"  class="user"><i class="fas fa-users-cog"></i>&ensp;[[${#httpServletRequest.remoteUser}]]</a></li>
+                    <li><a id="logout-btn"><i class="fas fa-sign-out-alt"></i>&ensp;Log ud</a></li>
                 </ul>
             </div>
         </nav>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="stylesheets/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css"
           integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
-    <title>PantHer</title>
+    <title>ElePant</title>
 
 </head>
 <body>
@@ -21,8 +21,7 @@
             <a class="logo" href="/">ELEPANT</a>
 
             <div class="menu">
-                <ul id="no-login-registered">
-                    <li><a href="bruger" class="fas fa-user-plus"><span th:text="${bruger.fornavn}"></span></a></li>
+                <ul sec:authorize="isAnonymous()" id="no-login-registered">
                     <!--CREATE USER BUTTON-->
                     <li><a id="create-user-btn"><i class="fas fa-user-plus"></i>&ensp;Opret bruger</a></li>
                     <!-- CREATE USER MODAL-->
@@ -32,7 +31,7 @@
                                 <span id="create-user-close-btn" class="close-btn">&times;</span>
                             </div>
                             <div class="modal-body">
-                                <form class="create-user-form" action="/opret-bruger" method="post">
+                                <form class="create-user-form" th:action="@{/opret-bruger}" method="post">
                                     <label><b>E-mailadresse</b></label>
                                     <input type="email" placeholder="Indtast din e-mailadresse" name="mail" required>
                                     <label><b>Fornavn</b></label>
@@ -43,14 +42,15 @@
                                     <input type="text" placeholder="Indtast dit telefonnummer" name="telefonnummer" required>
                                     <label><b>Kodeord</b></label>
                                     <input id="password" type="password" placeholder="Indtast dit kodeord" name="kodeord" required>
-                                    <input id="passwordconfirm "type="password" placeholder="Gentag dit kodeord" oninput="check(this)" required>
+
+                                    <input id="passwordconfirm "type="password" placeholder="Gentag dit kodeord" oninput="check(this)" name="kodeord2" required>
                                     <button class="create-user-button" value="Submit">Opret Bruger</button>
                                 </form>
                             </div>
                         </div>
                     </div>
                     <!--LOGIN BUTTON-->
-                    <li><a id="login-btn"><i class="fas fa-sign-in-alt"></i>&ensp;Login</a></li>
+                    <li><a id="login-btn"><i class="fas fa-sign-in-alt"></i>&ensp;Log ind</a></li>
                     <!--LOGIN MODAL-->
                     <div id="login-modal" class="modal">
                         <div class="modal-content">
@@ -58,12 +58,12 @@
                                 <span id="login-close-btn" class="close-btn">&times;</span>
                             </div>
                             <div class="modal-body">
-                                <form class="login-form" action="/login" method="post">
+                                <form class="login-form" th:action="@{/}" method="post">
                                     <label><b>E-mailadresse</b></label>
-                                    <input type="email" placeholder="Indtast din e-mailadresse" name="mail" required>
+                                    <input type="email" placeholder="Indtast din e-mailadresse" name="username" required>
                                     <br>
                                     <label><b>Kodeord</b></label>
-                                    <input type="password" placeholder="Indtast dit kodeord" name="kodeord" required>
+                                    <input type="password" placeholder="Indtast dit kodeord" name="password" required>
                                     <br>
                                     <button class="login-btn">Login</button>
                                     <br>
@@ -75,6 +75,10 @@
                         </div>
                     </div>
                 </ul>
+                <ul sec:authorize="isAuthenticated()" id="login-registered">
+                    <li><a href="/bruger" th:inline="text"  class="user"><i class="fas fa-users-cog"></i>&ensp;[[${#httpServletRequest.remoteUser}]]</a></li>
+                    <li><a id="logout-btn"><i class="fas fa-sign-out-alt"></i>&ensp;Log ud</a></li>
+                </ul>
             </div>
         </nav>
     </header>
@@ -85,8 +89,9 @@
         </section>
         <div id="map-controls">
             <ul>
-                <li><button th:unless="${userHasMarker}" id="create-marker-btn">Upload din pant</button></li>
-                <li><button th:if="${userHasMarker}" id="edit-marker-btn">Rediger din pant-markør</button></li>
+                <li><button th:unless="${userHasMarker}" id="create-marker-btn">Opret Pant</button></li>
+                <li th:if="${userHasMarker}"><button id="edit-marker-btn">Rediger</button><button id="delete-marker-btn">Slet</button>
+                </li>
             </ul>
             <div id="create-marker-modal" class="modal">
                 <div class="modal-content">

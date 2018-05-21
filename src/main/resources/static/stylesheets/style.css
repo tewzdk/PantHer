@@ -7,6 +7,7 @@
     --shadow: 0 1px 5px rgba(64, 64, 64, 0.8);
     --blue: #1e5674;
     --green: #3c8841;
+    --red: #822521;
 
     --nav-bar-primary: #3c3c3c;
     --nav-bar-light: linear-gradient(#4693b8, #1d76a7);
@@ -157,6 +158,10 @@ nav ul li {
 }
 nav ul li:hover{
     color: darkgrey;
+}
+nav ul a{
+    color: var(--dark);
+    text-decoration: none;
 }
 
 .menu-icon {
@@ -324,12 +329,28 @@ nav ul li:hover{
 }
 
 #map-controls {
+    text-align: center;
+    padding: 0;
+    margin: 0;
 
 }
+
 #map-controls button{
-    margin-top: 1rem;
-    width: 100%;
+    display: inline-block;
+    margin: 1rem 0 0 0;
+}
+
+#map-controls #create-marker-btn{
+    background: var(--green);
+    width: 100%
+}
+#map-controls #edit-marker-btn{
     background: var(--blue);
+    width: 50%
+}
+#map-controls #delete-marker-btn{
+    background: var(--red);
+    width: 50%
 }
 
 /* infowindow */
