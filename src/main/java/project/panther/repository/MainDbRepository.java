@@ -275,6 +275,6 @@ public class MainDbRepository implements DbInterface {
 
     @Override
     public void deleteGoogleMapMarker(int id) {
-        jdbc.update("DELETE FROM markører WHERE markør_id='" + id + "'");
+        jdbc.update("DELETE FROM markører WHERE bruger_id='" + id + "'");
     }
 }
