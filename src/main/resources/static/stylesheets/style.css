@@ -311,6 +311,10 @@ nav ul li:hover{
     height:100%;
     width:100%;
 }
+.map-container .create-marker-btn{
+    display: block;
+    margin: 0 auto;
+}
 
 #map {
     position:relative;
