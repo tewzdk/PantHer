@@ -72,7 +72,7 @@ ul{
 }
 
 label{
-    font-size: 12px;
+    font-size: 14px;
 }
 
 input[type=text], input[type=email], input[type=password] {
@@ -197,6 +197,18 @@ nav ul li:hover, nav ul a:hover{
     background-color: var(--blue);
 }
 
+.delete-marker-btn{
+    width: 100%;
+    padding: 12px 10px;
+    background: var(--red);
+}
+.delete-marker-cancel-btn{
+    width: 100%;
+    padding: 12px 10px;
+    background: var(--dark);
+}
+
+
 .close-btn {
     color: var(--light);
     font-size: 16px;
@@ -224,8 +236,10 @@ nav ul li:hover, nav ul a:hover{
 }
 
 .modal-content {
+    font-family: roboto;
+    font-size: 14px;
     background-color: var(--primary);
-    margin: 1rem auto;
+    margin: 3rem auto;
     width: 90%;
     max-width: 500px;
     animation-name: modal-content-open;
@@ -253,10 +267,25 @@ nav ul li:hover, nav ul a:hover{
     background-color: var(--blue);
 }
 
+#edit-marker-modal .modal-header{
+    background-color: var(--blue);
+}
+
+#delete-marker-modal .modal-header{
+    background-color: var(--red);
+}
+
 .modal-body {
     text-align: justify;
     padding: 10px 20px;
 }
+
+.show-modal {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1.0);
+}
+
 @keyframes modalopen {
     from{background-color: rgba(0,0,0,0.0)}
     to{background-color: rgba(0,0,0,0.9)}
@@ -368,7 +397,7 @@ nav ul li:hover, nav ul a:hover{
 
 .infoWindow p {
     font-size: 14px;
-    margin-bottom: 7px;
+    margin: 7px 0;
 }
 
 .infoWindow .profil-billede {

@@ -12,68 +12,70 @@
 
 </head>
 <body>
+<!--MODALS-->
+<!--CREATE USER MODAL -->
+<div id="create-user-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span id="create-user-close-btn" class="close-btn">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form class="create-user-form" th:action="@{/opret-bruger}" method="post">
+                <label><b>E-mailadresse</b></label>
+                <input type="email" placeholder="Indtast din e-mailadresse" name="mail" required>
+                <label><b>Fornavn</b></label>
+                <input type="text" placeholder="Indtast dit fornavn" name="fornavn" required>
+                <label><b>Efternavn</b></label>
+                <input type="text" placeholder="Indtast dit efternavn" name="efternavn" required>
+                <label><b>Telefonnummer</b></label>
+                <input type="text" placeholder="Indtast dit telefonnummer" name="telefonnummer" required>
+                <label><b>Kodeord</b></label>
+                <input id="password" type="password" placeholder="Indtast dit kodeord" name="kodeord" required>
+
+                <input id="passwordconfirm "type="password" placeholder="Gentag dit kodeord" oninput="check(this)" name="kodeord2" required>
+                <button class="create-user-button" value="Submit">Opret Bruger</button>
+            </form>
+        </div>
+    </div>
+</div>
+<!--LOGIN MODAL-->
+<div id="login-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span id="login-close-btn" class="close-btn">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form class="login-form" th:action="@{/}" method="post">
+                <label><b>E-mailadresse</b></label>
+                <input type="email" placeholder="Indtast din e-mailadresse" name="username" required>
+                <br>
+                <label><b>Kodeord</b></label>
+                <input type="password" placeholder="Indtast dit kodeord" name="password" required>
+                <br>
+                <button class="login-btn">Login</button>
+                <br>
+                <label><input type="checkbox" name="remember"> Husk oplysninger</label>
+            </form>
+        </div>
+        <div class="modal-footer">
+        </div>
+    </div>
+</div>
+
 <div class="wrapper">
     <header>
         <nav>
             <div class="menu-icon">
                 <i class="fa fa-bars fa-2x"></i>
             </div>
-            <a class="logo" href="/">ELEPANT</a>
+            <a class="logo" href="/mainpage">ELEPANT</a>
 
             <div class="menu">
-                <ul id="no-login-registered">
-                    <!--CREATE USER BUTTON-->
+                <ul sec:authorize="isAnonymous()" id="no-login-registered">
+                    <!--CREATE USER TRIGGER-->
                     <li><a id="create-user-btn"><i class="fas fa-user-plus"></i>&ensp;Opret bruger</a></li>
-                    <!-- CREATE USER MODAL-->
-                    <div id="create-user-modal" class="modal">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <span id="create-user-close-btn" class="close-btn">&times;</span>
-                            </div>
-                            <div class="modal-body">
-                                <form class="create-user-form" th:action="@{/opret-bruger}" method="post">
-                                    <label><b>E-mailadresse</b></label>
-                                    <input type="email" placeholder="Indtast din e-mailadresse" name="mail" required>
-                                    <label><b>Fornavn</b></label>
-                                    <input type="text" placeholder="Indtast dit fornavn" name="fornavn" required>
-                                    <label><b>Efternavn</b></label>
-                                    <input type="text" placeholder="Indtast dit efternavn" name="efternavn" required>
-                                    <label><b>Telefonnummer</b></label>
-                                    <input type="text" placeholder="Indtast dit telefonnummer" name="telefonnummer" required>
-                                    <label><b>Kodeord</b></label>
-                                    <input id="password" type="password" placeholder="Indtast dit kodeord" name="kodeord" required>
-
-                                    <input id="passwordconfirm "type="password" placeholder="Gentag dit kodeord" oninput="check(this)" name="kodeord2" required>
-                                    <button class="create-user-button" value="Submit">Opret Bruger</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <!--LOGIN BUTTON-->
+                    <!--LOGIN TRIGGER-->
                     <li><a id="login-btn"><i class="fas fa-sign-in-alt"></i>&ensp;Log ind</a></li>
-                    <!--LOGIN MODAL-->
-                    <div id="login-modal" class="modal">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <span id="login-close-btn" class="close-btn">&times;</span>
-                            </div>
-                            <div class="modal-body">
-                                <form class="login-form" th:action="@{/}" method="post">
-                                    <label><b>E-mailadresse</b></label>
-                                    <input type="email" placeholder="Indtast din e-mailadresse" name="username" required>
-                                    <br>
-                                    <label><b>Kodeord</b></label>
-                                    <input type="password" placeholder="Indtast dit kodeord" name="password" required>
-                                    <br>
-                                    <button class="login-btn">Login</button>
-                                    <br>
-                                    <label><input type="checkbox" name="remember"> Husk oplysninger</label>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                            </div>
-                        </div>
-                    </div>
                 </ul>
                 <ul sec:authorize="isAuthenticated()" id="login-registered">
                     <li><a href="/bruger" th:inline="text"  class="user"><i class="fas fa-users-cog"></i>&ensp;[[${#httpServletRequest.remoteUser}]]</a></li>
@@ -127,6 +129,7 @@
     </ul>
     <p>ElePant© 2018</p>
 </footer>
+<script src="scripts/nav-modals.js"></script>
 <script src="scripts/main.js"></script>
 </body>
 </html>

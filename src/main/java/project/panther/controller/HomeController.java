@@ -39,7 +39,6 @@ public class HomeController {
                                 @RequestParam String telefonnummer,
                                 @RequestParam String kodeord
                                 ) {
-        System.out.println("/opret-bruger er blevet startet");
         Bruger bruger = new Bruger(mail, fornavn,efternavn,telefonnummer,kodeord);
         bruger.setKodeord(encoder.encode(bruger.getKodeord()));
         repository.createBruger(bruger);
@@ -75,7 +74,6 @@ public class HomeController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String mail = authentication.getName();
         Bruger b = repository.readBruger(mail);
-        System.out.println(mail);
 
         double latitude = latHidden;
         double longitude = lngHidden;
