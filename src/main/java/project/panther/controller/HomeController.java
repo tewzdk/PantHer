@@ -90,6 +90,14 @@ public class HomeController {
 
         return "redirect:/mainpage";
     }
+    @PostMapping("/delete-marker")
+    public String deleteMarker(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String mail = authentication.getName();
+        Bruger b = repository.readBruger(mail);
+        repository.deleteGoogleMapMarker(b.getBrugerID());
+        return "redirect:/mainpage";
+    }
 
     @GetMapping("/bruger")
     public String BrugerSide(Model model) {

@@ -90,24 +90,36 @@
         <div id="map-controls">
             <ul>
                 <li><button th:unless="${userHasMarker}" id="create-marker-btn">Opret Pant</button></li>
-                <li th:if="${userHasMarker}"><button id="edit-marker-btn">Rediger</button><button id="delete-marker-btn">Slet</button></li>
-            </ul>
-            <div id="create-marker-modal" class="modal">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <span id="create-marker-close-btn" class="close-btn">&times;</span>
-                    </div>
-                    <div class="modal-body">
-                        <form class="create-marker-form" th:action="@{/create-marker}" method="post">
-                            <label><b>Cirkabeløb</b></label>
-                            <input type="text" placeholder="Indtast en estimeret værdi (mindst 10 kr.)" name="estimeretBeloeb" required>
-                            <input type="hidden" id="lat-hidden" name="latHidden">
-                            <input type="hidden" id="lng-hidden" name="lngHidden">
-                            <button class="create-marker-btn">Opret markør</button>
-                        </form>
+                <div id="create-marker-modal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <span id="create-marker-close-btn" class="close-btn">&times;</span>
+                        </div>
+                        <div class="modal-body">
+                            <form class="create-marker-form" th:action="@{/create-marker}" method="post">
+                                <label><b>Cirkabeløb</b></label>
+                                <input type="text" placeholder="Indtast en estimeret værdi (mindst 10 kr.)" name="estimeretBeloeb" required>
+                                <input type="hidden" id="lat-hidden" name="latHidden">
+                                <input type="hidden" id="lng-hidden" name="lngHidden">
+                                <button class="create-marker-btn">Opret markør</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <li th:if="${userHasMarker}"><button id="edit-marker-btn">Rediger</button><button id="delete-marker-btn">Slet</button></li>
+                <div id="delete-marker-modal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <span id="delete-marker-close-btn" class="close-btn">&times;</span>
+                        </div>
+                        <div class="modal-body">
+                            <form class="delete-marker-form" th:action="@{/delete-marker}" method="post">
+                                <button class="delete-marker-btn">Slet Markør</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </ul>
         </div>
         <br>
     </div>

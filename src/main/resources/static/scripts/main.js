@@ -36,13 +36,28 @@ var createMarkerModal = document.getElementById('create-marker-modal');
 var createMarkerBtn = document.getElementById('create-marker-btn');
 var createMarkerCloseBtn = document.getElementById('create-marker-close-btn');
 
+var deleteMarkerModal = document.getElementById('delete-marker-modal');
+var deleteMarkerBtn = document.getElementById('delete-marker-btn');
+var deleteMarkerCloseBtn = document.getElementById('delete-marker-close-btn');
+
+function newModalEventListener(elem, func){
+    try{
+        elem.addEventListener('click', func);
+    }
+    catch (e){
+        console.debug(elem + ' not found.');
+    }
+}
+
 //eventlisteners
-createUserBtn.addEventListener('click', openCreateUserModal);
-createUserCloseBtn.addEventListener('click', closeCreateUserModal);
-loginBtn.addEventListener('click', openLoginModal);
-loginCloseBtn.addEventListener('click', closeLoginModal);
-createMarkerBtn.addEventListener('click', openCreateMarkerModal);
-createMarkerCloseBtn.addEventListener('click', closeCreateMarkerModal);
+newModalEventListener(createUserBtn, openCreateUserModal);
+newModalEventListener(createUserCloseBtn, closeCreateUserModal());
+newModalEventListener(loginBtn, openLoginModal);
+newModalEventListener(loginCloseBtn, closeLoginModal());
+newModalEventListener(createMarkerBtn, openCreateMarkerModal);
+newModalEventListener(createMarkerCloseBtn, closeCreateMarkerModal());
+newModalEventListener(deleteMarkerBtn, openDeleteMarkerModal);
+newModalEventListener(deleteMarkerCloseBtn, closeDeleteMarkerModal());
 window.addEventListener('click', outsideClick);
 
 //functions for createusermodal
@@ -81,6 +96,14 @@ function closeCreateMarkerModal(){
     createMarkerModal.style.display = 'none';
 }
 
+function openDeleteMarkerModal(){
+    deleteMarkerModal.style.display = 'block';
+    console.debug("hertil open open")
+}
+
+function closeDeleteMarkerModal(){
+    deleteMarkerModal.style.display = 'none';
+}
 function outsideClick(e){
     if(e.target === createUserModal){
         createUserModal.style.display = 'none';
@@ -93,7 +116,9 @@ function outsideClick(e){
     if(e.target === createMarkerModal){
         createMarkerModal.style.display = 'none';
     }
-
+    if(e.target === deleteMarkerModal){
+        deleteMarkerModal.style.display = 'none';
+    }
 }
 
 
