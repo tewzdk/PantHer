@@ -21,15 +21,15 @@
         </div>
         <div class="modal-body">
             <form class="create-user-form" th:action="@{/opret-bruger}" method="post">
-                <label><b>E-mailadresse</b></label>
+                <label>E-mailadresse</label>
                 <input type="email" placeholder="Indtast din e-mailadresse" name="mail" required>
-                <label><b>Fornavn</b></label>
+                <label>Fornavn</label>
                 <input type="text" placeholder="Indtast dit fornavn" name="fornavn" required>
-                <label><b>Efternavn</b></label>
+                <label>Efternavn</label>
                 <input type="text" placeholder="Indtast dit efternavn" name="efternavn" required>
-                <label><b>Telefonnummer</b></label>
+                <label>Telefonnummer</label>
                 <input type="text" placeholder="Indtast dit telefonnummer" name="telefonnummer" required>
-                <label><b>Kodeord</b></label>
+                <label>Kodeord</label>
                 <input id="password" type="password" placeholder="Indtast dit kodeord" name="kodeord" required>
 
                 <input id="passwordconfirm "type="password" placeholder="Gentag dit kodeord" oninput="check(this)" name="kodeord2" required>
@@ -46,22 +46,21 @@
         </div>
         <div class="modal-body">
             <form class="login-form" th:action="@{/}" method="post">
-                <label><b>E-mailadresse</b></label>
+                <label>E-mailadresse</label>
                 <input type="email" placeholder="Indtast din e-mailadresse" name="username" required>
                 <br>
-                <label><b>Kodeord</b></label>
+                <label>Kodeord</label>
                 <input type="password" placeholder="Indtast dit kodeord" name="password" required>
                 <br>
                 <button class="login-btn">Login</button>
                 <br>
-                <label><input type="checkbox" name="remember"> Husk oplysninger</label>
+                <label><input type="checkbox" name="remember-me"> Husk oplysninger</label>
             </form>
         </div>
         <div class="modal-footer">
         </div>
     </div>
 </div>
-
 <div class="wrapper">
     <header>
         <nav>
@@ -85,39 +84,49 @@
         </nav>
     </header>
     <div class="content">
-
-        //EDIT
+        <div class="user-info-box">
+            <img th:src="${bruger.profilbilledesti}">
+            <h3 th:text="${bruger.fornavn} + ' ' + ${bruger.efternavn}"></h3>
+        </div>
         <form th:action="@{/edit-bruger}" method="post">
-            <label><b>E-mailadresse</b></label>
-            <input type="email" placeholder="Indtast din e-mailadresse" name="maill" th:value="${bruger.mail}" required>
-            <label><b>Fornavn</b></label>
-            <input type="text" placeholder="Indtast dit fornavn" name="fornavn" th:value="${bruger.fornavn}" required>
-            <label><b>Efternavn</b></label>
-            <input type="text" placeholder="Indtast dit efternavn" name="efternavn" th:value="${bruger.efternavn}" required>
-            <label><b>Telefonnummer</b></label>
-            <input type="text" placeholder="Indtast dit telefonnummer" name="telefonnummer" th:value="${bruger.telefonnummer}" required>
-            <label><b>Kodeord</b></label>
-            <input type="password" placeholder="Indtast dit kodeord" name="kodeord" required>
-
-            <button class="create-user-button" value="Submit">Ændre Bruger</button>
+            <button id="edit-user" type="button">
+                <p id="edit-user-text">Rediger konto</p><i class="fas fa-angle-up" id="edit-arrow"></i>
+            </button>
+            <div id="edit-user-form-content">
+                <label>E-mailadresse</label>
+                <input type="email" placeholder="Indtast din e-mailadresse" name="maill" th:value="${bruger.mail}" required>
+                <label>Fornavn</label>
+                <input type="text" placeholder="Indtast dit fornavn" name="fornavn" th:value="${bruger.fornavn}" required>
+                <label>Efternavn</label>
+                <input type="text" placeholder="Indtast dit efternavn" name="efternavn" th:value="${bruger.efternavn}" required>
+                <label>Telefonnummer</label>
+                <input type="text" placeholder="Indtast dit telefonnummer" name="telefonnummer" th:value="${bruger.telefonnummer}" required>
+                <label>Kodeord</label>
+                <input type="password" placeholder="Indtast dit kodeord" name="kodeord" required>
+                <button id="edit-user-submit">Bekræft ændringer</button>
+            </div>
         </form>
-        <br>
-        <form th:action="@{/slet-bruger}" method="post">
-            <button class="create-user-button" value="Submit">Slet Bruger</button>
-        </form>
-        <br>
         <form th:action="@{/skab-adresse}" method="post">
-            <label><b>Gade</b></label>
-            <input type="text" placeholder="Indtast din gade" name="gade" required>
-            <label><b>Husnummer</b></label>
-            <input type="text" placeholder="Indtast dit husnummer" name="husnummer" required>
-            <label><b>Etage</b></label>
-            <input type="text" placeholder="Indtast din etage" name="etage" required>
-            <label><b>Postnummer</b></label>
-            <input type="text" placeholder="Indtast dit postnummer" name="postnummer" required>
-            <label><b>By</b></label>
-            <input type="text" placeholder="Indtast din by" name="bynavn" required>
-            <button class="create-user-button" value="Submit">Opret</button>
+            <button id="create-address" type="button">
+                <p id="create-address-text">Tilføj adresse</p><i class="fas fa-angle-up" id="address-arrow"></i>
+            </button>
+            <div id="create-address-form-content">
+                <label>Gade</label>
+                <input type="text" placeholder="Indtast din gade" name="gade" required>
+                <label>Husnummer</label>
+                <input type="text" placeholder="Indtast dit husnummer" name="husnummer" required>
+                <label>Etage</label>
+                <input type="text" placeholder="Indtast din etage" name="etage" required>
+                <label>Postnummer</label>
+                <input type="text" placeholder="Indtast dit postnummer" name="postnummer" required>
+                <label>By</label>
+                <input type="text" placeholder="Indtast din by" name="bynavn" required>
+                <button id="create-address-submit">Opret adresse</button>
+            </div>
+
+        </form>
+        <form th:action="@{/slet-bruger}" method="post">
+            <button class="delete-user" value="Submit">Slet konto</button>
         </form>
     </div>
 </div>
@@ -129,7 +138,7 @@
     </ul>
     <p>ElePant© 2018</p>
 </footer>
-<script src="scripts/nav-modals.js"></script>
+<script src="scripts/user-page.js"></script>
 <script src="scripts/main.js"></script>
 </body>
 </html>

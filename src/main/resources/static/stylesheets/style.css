@@ -14,6 +14,7 @@
 
     /* misc */
     --modal-animation-duration: 0.8s;
+    --form-open-duration: 2.5s;
 }
 
 /* font faces */
@@ -72,11 +73,13 @@ ul{
 }
 
 label{
+    font-family: roboto;
     font-size: 14px;
 }
 
 input[type=text], input[type=email], input[type=password] {
-    font-size: 12px;
+    font-family: roboto;
+    font-size: 14px;
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -194,7 +197,7 @@ nav ul li:hover, nav ul a:hover{
 .create-marker-btn{
     width: 100%;
     padding: 12px 10px;
-    background-color: var(--blue);
+    background-color: var(--green);
 }
 
 .delete-marker-btn{
@@ -264,7 +267,7 @@ nav ul li:hover, nav ul a:hover{
 }
 
 #create-marker-modal .modal-header{
-    background-color: var(--blue);
+    background-color: var(--green);
 }
 
 #edit-marker-modal .modal-header{
@@ -355,7 +358,7 @@ nav ul li:hover, nav ul a:hover{
     position:relative;
     box-shadow: var(--shadow);
     overflow:hidden;
-    padding-bottom: 43%;
+    padding-bottom: 42%;
 }
 
 #map-controls {
@@ -431,6 +434,79 @@ nav ul li:hover, nav ul a:hover{
     position: absolute;
     background-color: black;
     color: var(--light);
+}
+
+.user-info-box {
+    text-align: center;
+    margin: 0 auto 1rem auto;
+}
+
+/* EDIT USER */
+#edit-user-form-content{
+    overflow: hidden;
+    max-height: 0;
+}
+
+#edit-user-form-content.show{
+    max-height: 800px;
+    -webkit-transition: max-height var(--form-open-duration);
+    -moz-transition: max-height var(--form-open-duration);
+    transition: max-height var(--form-open-duration);
+}
+
+#edit-user{
+    color: var(--primary);
+    width: 100%;
+    background: var(--blue);
+    margin: 1rem 0;
+}
+#edit-arrow{
+    top: 415px;
+    position: absolute;
+    visibility: hidden
+}
+
+#edit-user-submit{
+    width: 100%;
+    background: var(--blue);
+    margin: 1rem 0;
+}
+
+/* CREATE ADDRESS */
+#create-address-form-content{
+    overflow: hidden;
+    max-height: 0;
+}
+
+#create-address-form-content.show{
+    max-height: 800px;
+    -webkit-transition: max-height var(--form-open-duration);
+    -moz-transition: max-height var(--form-open-duration);
+    transition: max-height var(--form-open-duration);
+}
+
+#create-address{
+    width: 100%;
+    background: var(--green);
+    margin: 1rem 0;
+}
+
+#address-arrow{
+    top: 486px;
+    position: absolute;
+    visibility: hidden
+}
+
+#create-address-submit{
+    width: 100%;
+    background: var(--green);
+    margin: 1rem 0;
+}
+
+.delete-user{
+    width: 100%;
+    background: var(--red);
+    margin: 1rem 0;
 }
 /* footer */
 footer {

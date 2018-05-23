@@ -8,10 +8,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import project.panther.model.*;
 import project.panther.repository.MainDbRepository;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
@@ -67,7 +69,6 @@ public class HomeController {
 
         return "mainpage";
     }
-
 
     @PostMapping("/create-marker")
     public String createMarker(@RequestParam int estimeretBeloeb, double latHidden, double lngHidden){
@@ -134,7 +135,7 @@ public class HomeController {
 
         repository.deleteGoogleMapMarker(b.getBrugerID());
         repository.deleteBruger(b.getBrugerID());
-        return "redirect:/";
+        return "redirect:/logout";
     }
 
     @PostMapping("/skab-adresse")
@@ -160,6 +161,14 @@ public class HomeController {
         if (auth != null){
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
+
+        //fjerner remember-me-cookien.
+        String cookieName = "remember-me";
+        Cookie cookie = new Cookie(cookieName, null);
+        cookie.setMaxAge(0);
+        cookie.setPath(StringUtils.hasLength(request.getContextPath()) ? request.getContextPath() : "/");
+        response.addCookie(cookie);
+
         return "redirect:/";
     }
 
@@ -194,7 +203,7 @@ public class HomeController {
                     b.getFornavn(),
                     b.getEfternavn(),
                     b.getTelefonnummer(),
-                    b.getProfilbilledeSti()
+                    b.getProfilbilledesti()
             ));
         }
         return formattedData;                          //viewmodel

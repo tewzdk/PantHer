@@ -1,13 +1,10 @@
 package project.panther.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import project.panther.model.*;
-import project.panther.security.SecurityConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +71,6 @@ public class MainDbRepository implements DbInterface {
         );
 
         //createBrugerAdresse(brugerId,adresse.getAdresseID());
-
     }
 
     @Override
@@ -88,7 +84,7 @@ public class MainDbRepository implements DbInterface {
                 bruger.getEfternavn(),
                 bruger.getTelefonnummer(),
                 bruger.getKodeord(),
-                bruger.getProfilbilledeSti(),
+                bruger.getProfilbilledesti(),
                 bruger.isEnabled(),
                 bruger.getRole()
                 );
@@ -169,7 +165,7 @@ public class MainDbRepository implements DbInterface {
                 "efternavn = '"+ bruger.getEfternavn() + "', " +
                 "telefonnummer = '"+ bruger.getTelefonnummer() + "', " +
                 "kodeord = '" + bruger.getKodeord()+ "', " +
-                "profilbillede_sti = '"+ bruger.getProfilbilledeSti() +
+                "profilbillede_sti = '"+ bruger.getProfilbilledesti() +
 
                 "'WHERE bruger_id ='"+ bruger.getBrugerID() + "'");
 

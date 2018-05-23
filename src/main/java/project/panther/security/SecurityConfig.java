@@ -33,12 +33,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/", "/pictures/**", "/scripts/**", "/stylesheets/**" , "/lidt-om-os", "/elepantprojektet", "/samarbejdspartnere", "/opret-bruger", "/create-marker")
                 .permitAll()
-                .antMatchers("/mainpage")
+                .antMatchers("/mainpage", "/bruger")
                 .authenticated()
                 .and()
                 .formLogin().loginPage("/").defaultSuccessUrl("/mainpage")
                 .permitAll()
-                .and().logout()
+                .and()
+                .rememberMe()
+                .and()
+                .logout()
                 .permitAll();
         http.exceptionHandling().accessDeniedPage("/");
     }

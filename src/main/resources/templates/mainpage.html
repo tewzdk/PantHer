@@ -21,15 +21,15 @@
         </div>
         <div class="modal-body">
             <form class="create-user-form" th:action="@{/opret-bruger}" method="post">
-                <label><b>E-mailadresse</b></label>
+                <label>E-mailadresse</label>
                 <input type="email" placeholder="Indtast din e-mailadresse" name="mail" required>
-                <label><b>Fornavn</b></label>
+                <label>Fornavn</label>
                 <input type="text" placeholder="Indtast dit fornavn" name="fornavn" required>
-                <label><b>Efternavn</b></label>
+                <label>Efternavn</label>
                 <input type="text" placeholder="Indtast dit efternavn" name="efternavn" required>
-                <label><b>Telefonnummer</b></label>
+                <label>Telefonnummer</label>
                 <input type="text" placeholder="Indtast dit telefonnummer" name="telefonnummer" required>
-                <label><b>Kodeord</b></label>
+                <label>Kodeord</label>
                 <input id="password" type="password" placeholder="Indtast dit kodeord" name="kodeord" required>
 
                 <input id="passwordconfirm "type="password" placeholder="Gentag dit kodeord" oninput="check(this)" name="kodeord2" required>
@@ -46,15 +46,15 @@
         </div>
         <div class="modal-body">
             <form class="login-form" th:action="@{/}" method="post">
-                <label><b>E-mailadresse</b></label>
+                <label>E-mailadresse</label>
                 <input type="email" placeholder="Indtast din e-mailadresse" name="username" required>
                 <br>
-                <label><b>Kodeord</b></label>
+                <label>Kodeord</label>
                 <input type="password" placeholder="Indtast dit kodeord" name="password" required>
                 <br>
                 <button class="login-btn">Login</button>
                 <br>
-                <label><input type="checkbox" name="remember"> Husk oplysninger</label>
+                <label><input type="checkbox" name="remember-me"> Husk oplysninger</label>
             </form>
         </div>
         <div class="modal-footer">
@@ -69,7 +69,7 @@
         </div>
         <div class="modal-body">
             <form class="create-marker-form" th:action="@{/create-marker}" method="post">
-                <label><b>Cirkabeløb</b></label>
+                <label>Cirkabeløb</label>
                 <input type="text" placeholder="Indtast en estimeret værdi (mindst 10 kr.)" name="estimeretBeloeb" required>
                 <input type="hidden" id="lat-hidden" name="latHidden">
                 <input type="hidden" id="lng-hidden" name="lngHidden">
