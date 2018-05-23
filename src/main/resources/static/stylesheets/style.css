@@ -461,8 +461,7 @@ nav ul li:hover, nav ul a:hover{
     margin: 1rem 0;
 }
 #edit-arrow{
-    top: 415px;
-    position: absolute;
+    position: relative;
     visibility: hidden
 }
 
@@ -492,8 +491,7 @@ nav ul li:hover, nav ul a:hover{
 }
 
 #address-arrow{
-    top: 486px;
-    position: absolute;
+    position: relative;
     visibility: hidden
 }
 
