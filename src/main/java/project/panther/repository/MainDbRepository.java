@@ -100,9 +100,10 @@ public class MainDbRepository implements DbInterface {
         );
     }
 
+    //TODO mangler at blive lavet til prepared statement
     @Override
     public Bruger readBruger(int id) {
-        sqlRowSet = jdbc.queryForRowSet("SELECT * FROM brugere WHERE bruger_id ='"+ id + "'");
+        sqlRowSet = jdbc.queryForRowSet("SELECT * FROM brugere WHERE bruger_id =?", id);
 
         while (sqlRowSet.next()) {
             return new Bruger(
@@ -119,8 +120,9 @@ public class MainDbRepository implements DbInterface {
         return null;
     }
 
+    //mangler prepared statement
     public Bruger readBruger(String mail) {
-        sqlRowSet = jdbc.queryForRowSet("SELECT * FROM brugere WHERE mail ='"+ mail + "'");
+        sqlRowSet = jdbc.queryForRowSet("SELECT * FROM brugere WHERE mail =?", mail);
         while (sqlRowSet.next()) {
             return new Bruger(
                     sqlRowSet.getInt("bruger_id"),
@@ -138,13 +140,13 @@ public class MainDbRepository implements DbInterface {
 
 
 
-
+//TODO mangler prepared statement
     @Override
     public Adresse readadresse(int id)  {
         sqlRowSet = jdbc.queryForRowSet("SELECT panther.adresser.gade, panther.adresser.husnummer, panther.adresser.etage, panther.adresser.postnummer, panther.adresser.bynavn FROM PantHer.adresser " +
                 "INNER JOIN panther.brugeradresser ON adresser.adresse_id = brugeradresser.adresse_id" +
                 "INNER JOIN panther.brugere ON brugeradresser.bruger_id = brugere.bruger_id " +
-                "WHERE adresse_id ='"+ id + "'");
+                "WHERE adresse_id =", id);
 
         while (sqlRowSet.next()) {
             return new Adresse(
@@ -156,7 +158,7 @@ public class MainDbRepository implements DbInterface {
         }
         return null;
     }
-
+//TODO mangler prepared statement
     @Override
     public void updateBruger(Bruger bruger) {
         jdbc.update("UPDATE panther.brugere SET " +
@@ -170,7 +172,7 @@ public class MainDbRepository implements DbInterface {
                 "'WHERE bruger_id ='"+ bruger.getBrugerID() + "'");
 
     }
-
+//TODO mangler prepared statement
     @Override
     public void updateAdresse(Adresse adresse) {
         jdbc.update("UPDATE panther.adresser SET " +
@@ -222,7 +224,7 @@ public class MainDbRepository implements DbInterface {
         return googleMapMarkerList;
     }
     public GoogleMapMarker readGoogleMapMarker(int id) {
-        sqlRowSet = jdbc.queryForRowSet("SELECT * FROM panther WHERE markør_id = '" + id + "'");
+        sqlRowSet = jdbc.queryForRowSet("SELECT * FROM panther WHERE markør_id =?", id);
 
         while (sqlRowSet.next()) {
             int estimeret_beløb = sqlRowSet.getInt("estimeret_beløb");
@@ -245,14 +247,14 @@ public class MainDbRepository implements DbInterface {
         GoogleMapMarker g = googleMapMarker;
         jdbc.update("INSERT INTO PantHer.markører " +
                 "(bruger_id, latitude, longitude, oprettelsestidspunkt, afslutningstidspunkt, estimeret_beløb, pantbillede_sti) " +
-                "VALUES ('" +
-                g.getBrugerID() + "', '" +
-                g.getLatitude() + "', '" +
-                g.getLongitude() + "', '" +
-                g.getOprettelsesTidspunkt() + "', '" +
-                g.getAfslutningsTidspunkt() + "', '" +
-                g.getPant().getEstimeretBeloeb() + "', '" +
-                g.getPant().getPantBilledSti()   + "')"
+                "VALUES (?,?,?,?,?,?,?)",
+                g.getBrugerID(),
+                g.getLatitude(),
+                g.getLongitude(),
+                g.getOprettelsesTidspunkt(),
+                g.getAfslutningsTidspunkt(),
+                g.getPant().getEstimeretBeloeb(),
+                g.getPant().getPantBilledSti()
         );
     }
 
