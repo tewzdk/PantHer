@@ -1,3 +1,5 @@
+/* Written by: Michael Hansen & Sidney Schultz */
+
 package project.panther.model;
 
 import java.util.List;

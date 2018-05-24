@@ -1,3 +1,5 @@
+/* Written by: Max Møller Hoffmeyer */
+
 //init map variable
 var map;
 

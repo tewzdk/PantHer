@@ -1,3 +1,5 @@
+/* Written by: Michael Hansen, Max Møller Hoffmeyer & Sidney Schultz */
+
 package project.panther.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;

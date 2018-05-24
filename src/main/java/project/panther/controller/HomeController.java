@@ -1,3 +1,5 @@
+/* Written by: Michael Hansen, Max Møller Hoffmeyer, Thomas Bo Nielsen & Sidney Schultz */
+
 package project.panther.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,10 +52,8 @@ public class HomeController {
 
     @GetMapping ("/mainpage")
     public String mainpage(Model model) {
-        //TODO Dette stykke kode skaffer adgang til den loggede ind brugers informationer ift. database
-        //TODO Vi burde lave det til en funktion som vi kan kalde flere steder.
-        //TODO i stedet for at have overflødig kode.
 
+        //TODO dette kald skal laves om til en funtkion, da vi bruger den ofte.
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String mail = authentication.getName();
         Bruger b = repository.readBruger(mail);
@@ -219,7 +219,7 @@ public class HomeController {
                     b.getProfilbilledesti()
             ));
         }
-        return formattedData;                          //viewmodel
+        return formattedData; //viewmodel
     }
 
     @GetMapping("/lidt-om-os")

@@ -1,3 +1,5 @@
+/* Written by: Michael Hansen */
+
 package project.panther.model;
 
 public class Administrator extends Bruger {

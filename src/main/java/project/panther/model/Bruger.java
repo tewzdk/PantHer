@@ -1,3 +1,5 @@
+/* Written by: Michael Hansen, Max Møller Hoffmeyer & Sidney Schultz */
+
 package project.panther.model;
 
 import java.util.ArrayList;

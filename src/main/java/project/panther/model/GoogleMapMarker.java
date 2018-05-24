@@ -1,3 +1,5 @@
+/* Written by: Max Møller Hoffmeyer, Thomas Bo Nielsen & Sidney Schultz */
+
 package project.panther.model;
 
 

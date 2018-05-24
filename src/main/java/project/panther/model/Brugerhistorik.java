@@ -1,9 +1,11 @@
+/* Written by: Max Møller Hoffmeyer */
+
 package project.panther.model;
 
 import java.util.List;
 
 public class Brugerhistorik {
-    //Skal indeholde markører, som brugeren har haft.
+    //Skal indeholde markører, som brugeren har og har haft.
     //Markørene skal stamme fra markører-tabellen og evt. en inaktive-markører-tabel og passe til brugerens brugerID
 
     private List<GoogleMapMarker> brugerMarkers;

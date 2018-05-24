@@ -1,3 +1,5 @@
+/* Written by: Max Møller Hoffmeyer */
+
 //navbar
 //menu toggle-button
 $(document).ready(function(){

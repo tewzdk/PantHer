@@ -1,10 +1,10 @@
+/* Written by: Max Møller Hoffmeyer */
+
 //edit user
 var editUserButton = document.getElementById('edit-user');
 var editUserText = document.getElementById('edit-user-text');
 var editArrow = document.getElementById('edit-arrow');
 var editUserContent = document.getElementById('edit-user-form-content');
-
-
 
 editUserButton.onclick = function(){
         //lukker content der ikke er i brug

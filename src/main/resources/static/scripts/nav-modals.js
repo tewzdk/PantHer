@@ -1,3 +1,5 @@
+/* Written by: Max Møller Hoffmeyer */
+
 //nav bar modals
 //declared variables
 var createUserModal = document.getElementById('create-user-modal');

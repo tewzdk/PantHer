@@ -1,3 +1,5 @@
+/* Written by: Max Møller Hoffmeyer & Sidney Schultz */
+
 package project.panther.security;
 
 import javax.sql.DataSource;

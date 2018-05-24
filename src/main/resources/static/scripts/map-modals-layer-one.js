@@ -1,3 +1,5 @@
+/* Written by: Max Møller Hoffmeyer */
+
 //map control modals
 var createMarkerModal = document.getElementById('create-marker-modal');
 var createMarkerBtn = document.getElementById('create-marker-btn');

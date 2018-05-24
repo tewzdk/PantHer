@@ -1,3 +1,5 @@
+/* Written by: Max Møller Hoffmeyer */
+
 //map control modals layer two
 if($('#user-markers').length){  // return's true if element is present
     // show or hide another div

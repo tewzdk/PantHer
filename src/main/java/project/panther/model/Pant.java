@@ -1,3 +1,5 @@
+/* Written by: Michael Hansen, Thomas Bo Nielsen & Sidney Schultz */
+
 package project.panther.model;
 
 public class Pant {

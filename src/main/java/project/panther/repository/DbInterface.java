@@ -1,3 +1,5 @@
+/* Written by: Sidney Schultz */
+
 package project.panther.repository;
 
 import project.panther.model.Adresse;

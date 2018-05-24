@@ -1,3 +1,5 @@
+/* Written by: Max Møller Hoffmeyer & Thomas Bo Nielsen */
+
 package project.panther.model;
 
 import java.text.SimpleDateFormat;
