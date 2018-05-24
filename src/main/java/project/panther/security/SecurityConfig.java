@@ -17,9 +17,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    /*
+    Databasen er autowired hvilke gør at spring sørger for at
+    finde ud af hvad vi bruger som database.
+    Det er vist i application properties
+     */
     @Autowired
     DataSource dataSource;
 
+    /*
+    Bruger SQL query til at snakke med databasen.
+     */
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource)

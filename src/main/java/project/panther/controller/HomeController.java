@@ -50,6 +50,10 @@ public class HomeController {
 
     @GetMapping ("/mainpage")
     public String mainpage(Model model) {
+        //TODO Dette stykke kode skaffer adgang til den loggede ind brugers informationer ift. database
+        //TODO Vi burde lave det til en funktion som vi kan kalde flere steder.
+        //TODO i stedet for at have overflødig kode.
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String mail = authentication.getName();
         Bruger b = repository.readBruger(mail);
@@ -109,22 +113,25 @@ public class HomeController {
 
     }
     @PostMapping("/edit-bruger")
-    public String editBruger (@RequestParam String maill,
+    public String editBruger (@RequestParam String mail,
                               @RequestParam String fornavn,
                               @RequestParam String efternavn,
                               @RequestParam String telefonnummer,
                               @RequestParam String kodeord){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String mail = authentication.getName();
-        Bruger b = repository.readBruger(mail);
-        b.setMail(maill);
+        String authmail = authentication.getName();
+        Bruger b = repository.readBruger(authmail);
+        b.setMail(mail);
         b.setFornavn(fornavn);
         b.setEfternavn(efternavn);
         b.setTelefonnummer(telefonnummer);
         b.setKodeord(kodeord);
         b.setKodeord(encoder.encode(b.getKodeord()));
         repository.updateBruger(b);
-        return "redirect:/bruger";
+        /*TODO lav muligvis en if statement hvis der bliver ændret mail til at returne en anden side
+        redirecter til logout fordi at hvis man ændrer mailadresse vil der være
+        problemer med spring security da mail definerer den loggede ind bruger*/
+        return "redirect:/logout";
     }
 
     @PostMapping("/slet-bruger")
@@ -133,6 +140,7 @@ public class HomeController {
         String mail = authentication.getName();
         Bruger b = repository.readBruger(mail);
 
+        //FJERNER googlemarker før at brugeren bliver slettet fordi at der er en foreign key.
         repository.deleteGoogleMapMarker(b.getBrugerID());
         repository.deleteBruger(b.getBrugerID());
         return "redirect:/logout";
@@ -149,9 +157,14 @@ public class HomeController {
         String mail = authentication.getName();
         Bruger b = repository.readBruger(mail);
         Adresse adresse = new Adresse(gade,husnummer,etage,postnummer,bynavn);
-
-
         repository.createAdresse(adresse,b.getBrugerID());
+        Adresse a = repository.readadresse(adresse.getAdresseID());
+
+        int brugerID = b.getBrugerID();
+        int adresseID = a.getAdresseID();
+
+        //TODO fungerer ikke endnu da vi ikke kan få fat i adresseID
+        //repository.createBrugerAdresse(b.getBrugerID(),adresse.getAdresseID());
         return "redirect:/bruger";
     }
 

@@ -1,5 +1,6 @@
 package project.panther.model;
 
+//TODO mangler at blive fuldt inkorporeret i vores system.
 public class Adresse {
 
     private int adresseID;
